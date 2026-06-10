@@ -1,12 +1,155 @@
-@import 'src/styles/design-systems.module';
-.right-icon {
-  width: 11px;
+/* ───────── DriverCard – Gen‑Z Glassmorphism ───────── */
+
+.driver-card {
+  position: relative;
+  overflow: visible !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
 }
-.driver-text-box{
+
+.driver-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(124, 58, 237, 0.18);
+}
+
+/* ── Initials Avatar ── */
+.driver-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7C3AED 0%, #A855F7 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.driver-avatar span {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  user-select: none;
+}
+
+/* ── Driver Info ── */
+.driver-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
   overflow: hidden;
   text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  line-clamp: 1;
-  -webkit-box-orient:  vertical;
+  white-space: nowrap;
+  max-width: 140px;
+}
+
+.driver-id {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.4);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 140px;
+}
+
+/* ── Status Pill (top‑right) ── */
+.driver-status {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Online */
+.driver-status--online {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* On Route */
+.driver-status--on-route {
+  background: rgba(245, 158, 11, 0.2);
+  color: #F59E0B;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+/* Offline */
+.driver-status--offline {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+}
+
+/* ── Content Row ── */
+.driver-card-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 12px;
+}
+
+.driver-info-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  flex: 1;
+}
+
+/* ── Arrow Button ── */
+.driver-arrow-btn {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7C3AED 0%, #A855F7 100%);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: box-shadow 0.25s ease, transform 0.2s ease;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.driver-arrow-btn:hover {
+  box-shadow: 0 0 16px rgba(124, 58, 237, 0.45);
+  transform: scale(1.05);
+}
+
+.driver-arrow-btn:active {
+  transform: scale(0.95);
+}
+
+.driver-arrow-btn svg {
+  width: 16px;
+  height: 16px;
+  color: #fff;
+}
+
+/* ── Loader in place of arrow ── */
+.driver-loader {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }

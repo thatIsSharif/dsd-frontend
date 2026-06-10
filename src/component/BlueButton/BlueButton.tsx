@@ -1,20 +1,14 @@
-import {styled} from '@mui/material';
-import Button from '@mui/material/Button';
-import styles from 'styles/design-systems.module.scss';
+import Button, {ButtonProps} from '@mui/material/Button';
+import './BlueButton.scss';
 
-const BlueButton = styled(Button)({
-  minWidth: 120,
-  backgroundColor: styles.deepNavy,
-  borderRadius: '3px',
-  textTransform: 'none',
-  '&:hover': {
-    backgroundColor: styles.deepNavy,
-  },
-  '&:disabled': {
-    backgroundColor: styles.bgFrostedOceanBlue,
-    color: styles.whitePure,
-  },
-});
+function BlueButton({className = '', ...props}: ButtonProps) {
+  return (
+    <Button
+      className={`gradient-btn btn-press ${className}`}
+      {...props}
+    />
+  );
+}
 
 export default BlueButton;
 

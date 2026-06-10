@@ -1,72 +1,194 @@
-@import 'src/styles/design-systems.module';
+/* ===== Home Screen – Gen-Z Dashboard ===== */
 
-.avl-stock-screen {
-  overflow-y: scroll;
-  height: 100vh;
-  .nav-container {
-    margin-top: 30px;
-    padding-left: 3%;
-    padding-right: 3%;
+.home-screen {
+  min-height: 100vh;
+  background: var(--bg-deep);
+  overflow-y: auto;
+}
+
+.home-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+/* ---- Page Title ---- */
+.home-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
+  margin-bottom: 28px;
+}
+
+/* ---- Welcome Row (welcome card + live clock) ---- */
+.welcome-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+/* Skeleton placeholders for welcome row */
+.skeleton-details {
+  height: 100px;
+  min-height: 100px;
+}
+
+/* ---- Live Clock Card ---- */
+.live-clock-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 24px;
+  min-height: 100px;
+
+  .clock-icon {
+    font-size: 28px;
+    margin-bottom: 6px;
   }
-  .action-btn {
-    &:hover {
-      background-color: $bg-white-smoke;
-    }
-  }
-  .list-icon-container {
-    position: absolute;
-    top: 130px;
-    right: 19px;
 
-    .list-icon {
-      width: 100px;
-    }
+  .clock-time {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 0.02em;
   }
 
-  .download-container {
-    margin-block: 16px;
-
-    .download-btn-container {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .dots-icon-container {
-      flex: 0.7;
-      @media screen and (min-width: $breakpoint-xl) {
-        flex: 0.3;
-      }
-      height: 100%;
-      position: relative;
-    }
-
-    .dots-icon {
-      @include center-element;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
+  .clock-date {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 4px;
   }
 }
 
-.navigation-card {
-  transition: transform 0.3s;
+/* ---- Stat Cards Grid ---- */
+.stat-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+/* Skeleton placeholders for stat cards */
+.skeleton-stat {
+  height: 160px;
+}
+
+/* Individual stat card */
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  text-align: center;
+  transition: all 0.3s ease;
+
   &:hover {
-    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+    border-color: rgba(124, 58, 237, 0.25) !important;
+  }
+
+  .stat-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+    line-height: 1;
+  }
+
+  .stat-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+  }
+
+  .stat-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 6px;
+  }
+
+  .stat-delta {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #10B981;
+    margin-top: 4px;
   }
 }
 
-.navigation-card:first-child {
-  margin-left: 0;
+/* ---- Action Cards Grid ---- */
+.action-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
 }
 
-.header-icon {
-  margin-left: 14%;
-  width: 176px;
-  height: 40px;
+/* ---- Create Order Section ---- */
+.create-order-section {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.create-order-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 40px;
+  border-radius: 12px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  .btn-text {
+    color: #fff;
+  }
+
+  .btn-arrow {
+    font-size: 20px;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover .btn-arrow {
+    transform: translateX(4px);
+  }
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .welcome-row {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .action-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .stat-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-title {
+    font-size: 24px;
+  }
 }
 

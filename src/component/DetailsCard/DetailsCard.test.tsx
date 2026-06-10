@@ -25,7 +25,7 @@ describe('Details Card Tests', () => {
   });
   describe('Render Tests', () => {
     test('should render image', () => {
-      expect(screen.getByTestId('icon')).toHaveAttribute('src', mockIcon);
+      expect(screen.getByAltText('icon')).toHaveAttribute('src', mockIcon);
     });
     test('should render main info', () => {
       expect(screen.getByText(mockMainInfo)).toBeInTheDocument();

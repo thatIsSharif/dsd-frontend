@@ -1,263 +1,216 @@
-// This screen will display available stock page, it contains sidebar, table and heading
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import ListIcon from 'assets/PNG/ListIcon.png';
-import DateNavyBlue from 'assets/SVG/DateNavyBlue.svg';
-import DotsIcon from 'assets/SVG/DotsIcon.svg';
-import PersonBlue from 'assets/SVG/PersonBlue.svg';
-import {format} from 'date-fns';
+import {useState, useEffect, useRef} from 'react';
 import {Link} from 'react-router-dom';
-
-import Header from 'component/Header/Header';
-import {useTranslation} from 'react-i18next';
-import './Home.scss';
-
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import NagarroGray from 'assets/PNG/NagarroGray.png';
+import {useToast} from 'component/Toast/ToastContext';
+import {getStockSummary, getDrivers} from 'mock/api';
 import DetailsCard from 'component/DetailsCard/DetailsCard';
 import NavigationCard from 'component/NavigationCard/NavigationCard';
 import {SidebarData} from 'component/SidebarNew/SidebarData';
-import styles from 'styles/design-systems.module.scss';
+import './Home.scss';
+
+interface StockSummary {
+  totalOut: number;
+  totalIn: number;
+  activeDrivers: number;
+  ordersToday: number;
+}
+
+interface Driver {
+  id: string;
+  name: string;
+  type: string;
+  status: string;
+}
+
+/* Animated counter using requestAnimationFrame */
+function AnimatedCounter({value}: {value: number}) {
+  const [count, setCount] = useState(0);
+  const frameRef = useRef(0);
+  const startRef = useRef(0);
+
+  useEffect(() => {
+    startRef.current = performance.now();
+    const animate = (now: number) => {
+      const elapsed = now - startRef.current;
+      const progress = Math.min(elapsed / 800, 1);
+      setCount(Math.floor(progress * value));
+      if (progress < 1) {
+        frameRef.current = requestAnimationFrame(animate);
+      }
+    };
+    frameRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frameRef.current);
+  }, [value]);
+
+  return <span>{count.toLocaleString()}</span>;
+}
 
 function Home() {
-  const {t} = useTranslation();
+  const {addToast} = useToast();
+  const [loading, setLoading] = useState(true);
+  const [stockSummary, setStockSummary] = useState<StockSummary | null>(null);
+  const [drivers, setDrivers] = useState<Driver[]>([]);
+  const [time, setTime] = useState(new Date());
+  const [greeting, setGreeting] = useState('');
+
+  /* Fetch mock API data */
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const [summary, driverList] = await Promise.all([
+          getStockSummary(),
+          getDrivers(),
+        ]);
+        setStockSummary(summary);
+        setDrivers(driverList);
+      } catch (err) {
+        console.error('Failed to fetch dashboard data', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  /* Welcome toast on mount */
+  useEffect(() => {
+    addToast('Welcome to the Dashboard!', 'info');
+  }, [addToast]);
+
+  /* Live clock */
+  useEffect(() => {
+    const interval = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  /* Time-of-day greeting */
+  useEffect(() => {
+    const hour = new Date().getHours();
+    if (hour < 12) setGreeting('Good Morning');
+    else if (hour < 18) setGreeting('Good Afternoon');
+    else setGreeting('Good Evening');
+  }, []);
+
+  const formatTime = (date: Date) =>
+    date.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true,
+    });
+
+  const formatDate = (date: Date) =>
+    date.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+
+  /* Compute active drivers from the drivers list */
+  const activeDriverCount = drivers.filter(
+    (d) => d.status === 'Online' || d.status === 'On Route',
+  ).length;
+
+  const statCards = stockSummary
+    ? [
+        {
+          label: 'Orders Today',
+          value: stockSummary.ordersToday,
+          icon: '📦',
+          accent: 'var(--accent-cyan)',
+        },
+        {
+          label: 'Active Drivers',
+          value: activeDriverCount,
+          icon: '🚚',
+          accent: 'var(--accent-green)',
+        },
+        {
+          label: 'Items in Stock',
+          value: stockSummary.totalIn,
+          icon: '📊',
+          accent: 'var(--accent-purple)',
+        },
+        {
+          label: 'Stock Out',
+          value: stockSummary.totalOut,
+          icon: '📤',
+          accent: 'var(--accent-amber)',
+        },
+      ]
+    : [];
 
   return (
-    <div className="avl-stock-screen hide-scrollbar">
-      <Header showLanguageSelector={true}>
-        <img className="header-icon" src={NagarroGray}></img>
-      </Header>
-      <Stack className="nav-container">
-        <Box marginBottom={'16px'} position={'relative'}>
-          <CardStack />
-        </Box>
-        <Box
-          sx={{
-            maxWidth: '100%',
-            width: '100%',
-            rowGap: '7%',
-            columnGap: '2%',
-            display: 'grid',
-            gridTemplateColumns: {
-              sm: 'repeat(2, 1fr)',
-              md: 'repeat(2, 1fr)',
-              lg: 'repeat(4, 1fr)',
-              xl: 'repeat(4, 1fr)',
-            },
-            marginBottom: 3,
-          }}>
+    <div className="home-screen page-enter">
+      <div className="home-container">
+        <h1 className="home-title">Dashboard</h1>
+
+        {/* Welcome card + Live Clock */}
+        <div className="welcome-row">
+          {loading ? (
+            <>
+              <div className="skeleton skeleton-details" />
+              <div className="skeleton skeleton-details" />
+            </>
+          ) : (
+            <>
+              <DetailsCard
+                gradientAvatar
+                mainInfo={`${greeting}, Admin!`}
+                secondaryInfo="Here's your inventory overview for today"
+              />
+              <div className="glass-card live-clock-card">
+                <div className="clock-icon">🕒</div>
+                <div className="clock-time">{formatTime(time)}</div>
+                <div className="clock-date">{formatDate(time)}</div>
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* Stat cards grid */}
+        <div className="stat-cards-grid">
+          {loading
+            ? Array.from({length: 4}).map((_, i) => (
+                <div key={i} className="skeleton skeleton-stat" />
+              ))
+            : statCards.map((stat, i) => (
+                <div key={i} className="glass-card stat-card">
+                  <div className="stat-icon" style={{color: stat.accent}}>
+                    {stat.icon}
+                  </div>
+                  <div className="stat-value">
+                    <AnimatedCounter value={stat.value} />
+                  </div>
+                  <div className="stat-label">{stat.label}</div>
+                  <div className="stat-delta">▲ 12%</div>
+                </div>
+              ))}
+        </div>
+
+        {/* Action cards */}
+        <div className="action-cards-grid">
           {SidebarData.map(
             (item, index) =>
               index !== 0 && <NavigationCard item={item} key={index} />,
           )}
-          <Stack>
-            <Card
-              variant={'outlined'}
-              sx={{
-                width: {
-                  md: '94%',
-                  lg: '98%',
-                  xl: '90%',
-                },
-                height: {
-                  md: '256px',
-                  lg: '256px',
-                  xl: '300px',
-                },
-                borderRadius: 2,
-                backgroundColor: styles.bgVibrantOceanBlue,
-                position: 'relative',
-              }}>
-              <CardContent
-                sx={{
-                  color: styles.whitePure,
-                }}>
-                <Stack
-                  direction="column"
-                  justifyContent="space-between"
-                  alignItems="start"
-                  height="100%"
-                  paddingLeft={'6px'}
-                  marginBottom={1}
-                  marginTop={3}>
-                  <div>
-                    <div className="list-icon-container">
-                      <img
-                        className="list-icon"
-                        data-testid={'icon'}
-                        src={ListIcon}
-                        alt={'icon'}
-                      />
-                    </div>
-                    <Typography
-                      fontSize={styles.fontSizeXl}
-                      fontWeight={styles.fontWeightBolder}>
-                      {t('createLoadingOrder.heading')}
-                    </Typography>
-                    <Typography
-                      color={styles.offWhiteGray}
-                      fontSize={styles.fontSizeSm}
-                      fontWeight={styles.fontWeightLight}>
-                      {t('createLoadingOrder.subHeading')}
-                    </Typography>
-                  </div>
-                  <div>
-                    <Box
-                      sx={{
-                        textAlign: 'start',
-                        fontSize: styles.fontSizeSm,
-                        fontWeight: styles.fontWeightNormal,
-                      }}>
-                      <Button
-                        className="action-btn"
-                        sx={{
-                          mt: 1,
-                          color: styles.bgVibrantOceanBlue,
-                          backgroundColor: styles.whitePure,
-                          textTransform: 'none',
-                        }}
-                        variant="contained"
-                        size="small"
-                        component={Link}
-                        to="/stock-check-out/driver"
-                        disableElevation>
-                        {t('availablestock.creatNow')}
-                      </Button>
-                    </Box>
-                  </div>
-                </Stack>
-              </CardContent>
-            </Card>
-          </Stack>
-        </Box>
-        <Box
-          display={'grid'}
-          sx={{
-            gridTemplateColumns: {
-              sm: 'repeat(4, 1fr)',
-            },
-            paddingLeft: {
-              md: '0.2%',
-              lg: '0%',
-              xl: '0.6%',
-            },
-            paddingRight: {
-              md: '3%',
-              lg: '0.5%',
-              xl: '2.4%',
-            },
-          }}
-          className="download-container">
-          <Stack
-            direction={'row'}
-            justifyContent={'space-between'}
-            alignItems={'center'}
-            borderRadius={2}
-            sx={{
-              background: styles.gradientBlueMist,
-              paddingLeft: '3%',
+        </div>
 
-              height: '100px',
-              width: {
-                sm: '95%',
-                md: '97%',
-                lg: '97.5%',
-                xl: '96%',
-              },
-              gridColumn: '3/5',
-              justifySelf: 'end',
-            }}>
-            <Typography
-              flex={1}
-              sx={{paddingLeft: '2%'}}
-              color={styles.darkNavy}
-              fontSize={styles.fontSizeMd}
-              fontWeight={styles.fontWeightNormal}>
-              {t('downloadContainer.line1')}
-              <br />
-              {t('downloadContainer.line2')}
-            </Typography>
-            <div className="dots-icon-container">
-              <img src={DotsIcon} alt="DotsIcon" className="dots-icon" />
-              <div className="download-btn-container">
-                <Button
-                  className="action-btn"
-                  sx={{
-                    textTransform: 'none',
-                    color: styles.charcoalDark,
-                    backgroundColor: styles.whitePure,
-                    borderRadius: '29px',
-                    fontSize: styles.fontSizeXsm,
-                    fontWeight: styles.fontWeightNormal,
-                    '&:hover': {backgroundColor: styles.bgWhiteSmoke},
-                  }}
-                  variant="contained"
-                  size="small"
-                  component={Link}
-                  to=""
-                  disableElevation>
-                  {t('downloadContainer.buttonText')}
-                </Button>
-              </div>
-            </div>
-          </Stack>
-        </Box>
-      </Stack>
+        {/* Create Loading Order button */}
+        <div className="create-order-section">
+          <Link
+            to="/stock-check-out/driver"
+            className="gradient-btn create-order-btn"
+          >
+            <span className="btn-text">Create Loading Order</span>
+            <span className="btn-arrow">→</span>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
 
 export default Home;
-
-// Component containing all cards
-function CardStack() {
-  const {t} = useTranslation();
-  const date = format(new Date(), 'do MMMM, yyyy');
-  const user = JSON.parse(
-    localStorage.getItem('user') || '{username:"",employee_id:""}',
-  );
-  const adminMainInfo = `${t('home.welcomeAdmin')} ${user.username?.split(' ')[0] || ''}!`;
-  const dateMainInfo = t('home.dateHeading');
-  return (
-    <Stack
-      direction="row"
-      columnGap={'3%'}
-      marginBottom={2}
-      sx={{
-        justifyContent: {
-          sm: 'inherit',
-          md: 'space-between',
-          xl: 'inherit',
-        },
-        paddingRight: {
-          md: '3%',
-          lg: '0.6%',
-          xl: '2%',
-        },
-      }}
-      paddingLeft={'2px'}>
-      <DetailsCard
-        iconBackground={styles.bgTranslucentWhite}
-        icon={PersonBlue}
-        cardBackground={styles.bgMidnightBlueGray}
-        mainInfo={adminMainInfo}
-        mainInfoColor={styles.whitePure}
-        secondaryInfo={t('home.adminSecondaryHeading')}
-        secondaryInfoColor={styles.whitePure}
-      />
-      <DetailsCard
-        iconBackground={styles.bgFrostBlue}
-        icon={DateNavyBlue}
-        cardBackground={styles.whitePure}
-        mainInfo={dateMainInfo}
-        mainInfoColor={styles.charcoalDark}
-        secondaryInfo={date}
-        secondaryInfoColor={styles.grayCharcoal}
-      />
-    </Stack>
-  );
-}
 

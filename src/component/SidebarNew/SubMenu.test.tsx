@@ -64,7 +64,7 @@ describe('submenu-test', () => {
     );
 
     // Check if item name is displayed
-    const itemName = screen.getByText('Home');
+    const itemName = screen.getByText('sidebar.home');
     expect(itemName).toBeInTheDocument();
   });
 });

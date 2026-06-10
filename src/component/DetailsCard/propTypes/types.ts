@@ -1,11 +1,13 @@
 // Interface defining Details Card Component Props
 export interface DetailsCardProps {
-  iconBackground: string;
-  icon: string;
-  cardBackground: string;
+  icon?: string;
+  iconBackground?: string;
+  gradientAvatar?: boolean;
+  cardBackground?: string;
   mainInfo: string;
-  mainInfoColor: string;
-  secondaryInfo: string;
-  secondaryInfoColor: string;
+  mainInfoColor?: string;
+  secondaryInfo?: string;
+  secondaryInfoColor?: string;
+  className?: string;
 }
 

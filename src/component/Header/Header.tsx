@@ -8,9 +8,9 @@ export default function Header({
   showLanguageSelector = false,
 }: HeaderProps) {
   return (
-    <header className={'header'}>
+    <header className="header page-enter">
       <div className={'header-container'}>
-        <div>{children}</div>
+        <div className="header-children">{children}</div>
         <div className={'selector-container'}>
           {showLanguageSelector && (
             <span className={'language-dropdown'}>

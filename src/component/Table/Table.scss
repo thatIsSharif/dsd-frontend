@@ -1,5 +1,151 @@
 @import 'src/styles/design-systems.module';
+
 $block-margin: 14px;
+
+/* ─── Glassy Dark Table Surface ─── */
+.table {
+  &.MuiDataGrid-root {
+    background: rgba(255, 255, 255, 0.03) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    font-family: 'Space Grotesk', sans-serif;
+  }
+}
+
+/* ─── Header ─── */
+.MuiDataGrid-columnHeaders {
+  background: rgba(124, 58, 237, 0.15) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 16px 16px 0 0 !important;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.MuiDataGrid-columnHeader {
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: #7C3AED !important;
+  font-weight: 600 !important;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.MuiDataGrid-columnHeaderTitle {
+  font-weight: 600 !important;
+  color: #7C3AED !important;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* ─── Row hover with slide-in effect ─── */
+.MuiDataGrid-row {
+  font-family: 'Space Grotesk', sans-serif;
+  transition: background 0.2s ease;
+  position: relative;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.04) !important;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(180deg, #7C3AED, #06B6D4);
+      animation: slideInLeft 0.25s ease-out;
+    }
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* ─── Status Pills ─── */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 100px;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: 'Space Grotesk', sans-serif;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+
+  &.success {
+    color: #10B981;
+    background: rgba(16, 185, 129, 0.12);
+    border-color: rgba(16, 185, 129, 0.25);
+  }
+
+  &.warning {
+    color: #F59E0B;
+    background: rgba(245, 158, 11, 0.12);
+    border-color: rgba(245, 158, 11, 0.25);
+  }
+
+  &.error {
+    color: #EF4444;
+    background: rgba(239, 68, 68, 0.12);
+    border-color: rgba(239, 68, 68, 0.25);
+  }
+
+  &.info {
+    color: #7C3AED;
+    background: rgba(124, 58, 237, 0.12);
+    border-color: rgba(124, 58, 237, 0.25);
+  }
+}
+
+/* ─── Pagination ─── */
+.MuiPaginationItem-root {
+  min-width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.12) !important;
+  }
+
+  &.Mui-selected {
+    background: #7C3AED !important;
+    color: #fff !important;
+    border-color: #7C3AED !important;
+    box-shadow: 0 0 12px rgba(124, 58, 237, 0.35);
+
+    &:hover {
+      background: #6D28D9 !important;
+    }
+  }
+}
+
+/* ─── Legacy / filter styles ─── */
 .filter-item {
   &.MuiDataGrid-menuList {
     padding: 0;

@@ -5,9 +5,28 @@
   gap: 5px;
   @extend %common-form-rules;
 
+  .form-label {
+    color: rgba(255, 255, 255, 0.7) !important;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .form-input {
+    color: rgba(255, 255, 255, 0.9) !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    font-family: 'Space Grotesk', sans-serif;
+    &:focus-visible {
+      outline-color: $electric-purple !important;
+    }
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.3) !important;
+    }
+  }
+
   .form-link {
     text-decoration: none;
-    color: $deep-navy;
+    color: $electric-purple;
+    font-family: 'Space Grotesk', sans-serif;
   }
 
   .eye-icon {
@@ -15,6 +34,7 @@
     top: 5%;
     right: 1%;
     z-index: 1;
+    color: rgba(255, 255, 255, 0.5) !important;
   }
 
   .password-input-container {
@@ -22,13 +42,19 @@
   }
 
   .MuiButtonBase-root[type='submit'] {
-    background-color: $deep-navy;
+    background: $gradient-purple-cyan !important;
     text-transform: none;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    border-radius: 8px !important;
+    &:active {
+      transform: scale(0.97);
+    }
   }
 
   .MuiButtonBase-root:disabled {
-    background-color: $gray-muted;
-    color: $white-pure;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: rgba(255, 255, 255, 0.3) !important;
   }
 }
 
@@ -38,18 +64,25 @@
 }
 
 .login-root {
+  min-height: 100vh;
+  background: $bg-surface-dark;
+  position: relative;
+
   .bg-image {
     position: absolute;
     @include responsive-image;
     min-height: 500px;
-
-    z-index: -1;
-    filter: brightness(0.45) contrast(0.8);
+    z-index: 0;
+    filter: brightness(0.25) contrast(0.8);
+    opacity: 0.5;
   }
 
   .logo {
     width: 150px;
     object-fit: contain;
+    position: relative;
+    z-index: 1;
+    filter: hue-rotate(260deg) brightness(1.5);
   }
 
   .form-container {
@@ -57,9 +90,13 @@
     top: 52%;
     position: absolute;
     width: 500px;
-    background-color: $white-pure;
+    background: $glass-bg;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid $glass-border;
     padding: 60px 70px;
-    border-radius: 12px;
+    border-radius: 16px;
+    z-index: 1;
     @media screen and (min-width: $breakpoint-xl) {
       width: 550px;
       padding: 60px 80px;

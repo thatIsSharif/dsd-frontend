@@ -33,7 +33,7 @@ const renderWithContext = (
   );
 };
 
-describe('timeline tets', () => {
+describe('timeline tests', () => {
   beforeEach(() => {
     renderWithContext(<Timeline />, {
       providerProps: mockTimelineProps,
@@ -50,24 +50,24 @@ describe('timeline tets', () => {
     });
   });
 
-  test('steps marked as active or disabled', () => {
-    expect(screen.getByText('1. Select Driver')).toHaveClass('active');
-    expect(screen.getByText('2. Assigned Stock')).toHaveClass('active');
-    expect(screen.getByText('3. Activation')).toHaveClass('disable');
-  });
-
-  test('checks if .steps-done is present in .step based on currentStep', () => {
+  test('steps marked as completed, active, or pending', () => {
     const {container} = renderWithContext(<Timeline />, {
       providerProps: mockTimelineProps,
     });
-    const stepElements = container.querySelectorAll('step');
+    const circles = container.querySelectorAll('.step-circle');
+    expect(circles[0]).toHaveClass('completed');
+    expect(circles[1]).toHaveClass('active');
+    expect(circles[2]).toHaveClass('pending');
+  });
 
-    stepElements.forEach((step, index) => {
-      if (index + 1 <= mockTimelineProps.currentStep) {
-        expect(step.querySelector('.steps-done')).toBeInTheDocument();
-      } else {
-        expect(step.querySelector('.steps-done')).not.toBeInTheDocument();
-      }
+  test('checks if .step-circle is present in each .step', () => {
+    const {container} = renderWithContext(<Timeline />, {
+      providerProps: mockTimelineProps,
+    });
+    const stepElements = container.querySelectorAll('[data-testid="step"]');
+
+    stepElements.forEach((step) => {
+      expect(step.querySelector('.step-circle')).toBeInTheDocument();
     });
   });
 });

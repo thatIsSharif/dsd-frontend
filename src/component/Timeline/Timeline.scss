@@ -1,96 +1,102 @@
-@import 'src/styles/design-systems.module';
+@import 'src/styles/colors';
+@import 'src/styles/mixins';
+@import 'src/styles/typography';
+@import 'src/styles/variables';
 
 .container-timeline-outer {
-  background-color: transparent; /* Replace var(--bg-color) with the desired background color */
+  background: transparent;
   @include flex-column;
   @include flex-center;
   position: relative;
   top: -20px;
 
   .container-timeline {
-    padding-inline: 2%;
     display: flex;
     @include flex-row;
-    height: 120px;
-    @media screen and (min-width: $breakpoint-xl) {
-      height: 160px;
-    }
-    width: 100%;
-    background: $white-pure;
-    border-radius: 8px;
     align-items: center;
-    padding: 0 4%;
+    width: 100%;
+    padding: 28px 4%;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 16px;
   }
 
   .step-item {
     @include flex-column;
     @include flex-center;
-    @extend .font-xsm;
     width: 10%;
     position: relative;
-    height: 90%;
-    justify-content: start;
-  }
-
-  .timeline-hr {
-    height: 5px;
-    flex: 1;
-    border-radius: 10px;
-    margin-bottom: 26px;
-    @media screen and (min-width: $breakpoint-xl) {
-      margin-bottom: 39px;
-    }
+    justify-content: flex-start;
   }
 
   .step {
-    margin-top: 26px;
+    margin-top: 24px;
     @media screen and (min-width: $breakpoint-xl) {
-      margin-top: 40px;
+      margin-top: 36px;
     }
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
     display: flex;
     @include flex-center;
     z-index: 2;
     position: relative;
-    background-color: $white-pure;
+  }
+
+  .step-circle {
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    font-weight: $font-bolder;
-    color: $white-pure;
-  }
+    display: flex;
+    @include flex-center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    transition: all 0.3s ease;
 
-  .steps-done {
-    height: 24px;
-    width: 24px;
-    border-radius: 10px;
-  }
+    &.completed {
+      background: $neon-cyan;
+      color: $white-pure;
+      box-shadow: 0 0 14px rgba($neon-cyan, 0.5);
+    }
 
-  img {
-    height: 24px;
-    width: 24px;
+    &.active {
+      background: linear-gradient(135deg, $electric-purple, #6D28D9);
+      color: $white-pure;
+      box-shadow: 0 0 14px rgba($electric-purple, 0.5);
+    }
+
+    &.pending {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.4);
+    }
   }
 
   .steps-wrapper {
     position: absolute;
-    top: 49%;
+    top: 52%;
     @media screen and (min-width: $breakpoint-xl) {
-      top: 54%;
+      top: 56%;
     }
     @include flex-column;
     @include flex-center;
   }
 
   .steps {
-    color: $gray-charcoal;
+    color: rgba(255, 255, 255, 0.6);
     @include flex-row;
     @include flex-center;
     word-wrap: break-word;
-    font-size: $font-xsm;
-    font-weight: $font-normal;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
     width: 160%;
     min-width: 68px;
     text-align: center;
-    padding-bottom: 1%;
+    padding-bottom: 2%;
   }
 
   .step-item:first-of-type .steps-wrapper > .steps:first-child {
@@ -103,19 +109,44 @@
   .step-indicator {
     display: flex;
     justify-content: center;
-    font-size: $font-xxsm;
-    font-weight: $font-normal;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
 
     &.in-progress {
-      color: $primary-blue;
+      color: $electric-purple;
     }
 
     &.completed {
-      color: $vibrant-green;
+      color: $neon-cyan;
     }
 
     &.pending {
-      color: $gray-muted;
+      color: rgba(255, 255, 255, 0.35);
+    }
+  }
+
+  .timeline-hr {
+    height: 3px;
+    flex: 1;
+    border-radius: 2px;
+    margin-bottom: 24px;
+    @media screen and (min-width: $breakpoint-xl) {
+      margin-bottom: 36px;
+    }
+    transition: background 0.3s ease;
+
+    &.completed {
+      background: $neon-cyan;
+    }
+
+    &.in-progress {
+      background: linear-gradient(90deg, $neon-cyan, rgba(255, 255, 255, 0.15));
+    }
+
+    &.pending {
+      background: rgba(255, 255, 255, 0.1);
     }
   }
 }

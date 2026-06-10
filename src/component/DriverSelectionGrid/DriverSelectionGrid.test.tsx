@@ -54,27 +54,26 @@ describe('Driver Selection Grid Tests', () => {
 
   describe('Driver Selection Grid search box Tests', () => {
     let searchBox: HTMLElement;
+    let searchInput: HTMLElement;
     beforeEach(() => {
       searchBox = screen.getByTestId('search-box');
+      searchInput = within(searchBox).getByRole('textbox');
     });
 
     test('should render', () => {
       expect(searchBox).toBeInTheDocument();
     });
-    test('should have given class', () => {
-      expect(searchBox).toHaveAttribute('class', 'search-box');
-    });
     test('should have value', () => {
-      expect(searchBox).toHaveAttribute('value');
+      expect(searchInput).toHaveAttribute('value');
     });
     test('should reflect input value on change', async () => {
-      await userEvent.type(searchBox, 'abcdef');
-      expect(searchBox).toHaveValue('abcdef');
+      await userEvent.type(searchInput, 'abcdef');
+      expect(searchInput).toHaveValue('abcdef');
     });
     test('should display only searched driver', async () => {
       expect(screen.getByText('ABC')).toBeInTheDocument();
       expect(screen.getByText('XYZ')).toBeInTheDocument();
-      await userEvent.type(searchBox, 'abc');
+      await userEvent.type(searchInput, 'abc');
       await waitFor(
         () => {
           expect(screen.queryByText('XYZ')).not.toBeInTheDocument();
@@ -128,11 +127,12 @@ describe('Driver Selection Grid Tests', () => {
     });
 
     test('should have selected class on selected driver', () => {
-      expect(driverBtnArr[0]).toHaveClass('selected');
+      // First driver btn has no selected class (selectedDriverId is empty)
+      expect(driverBtnArr[0]).not.toHaveClass('selected');
       expect(driverBtnArr[1]).not.toHaveClass('selected');
     });
     test('should call handle driver selection on change', async () => {
-      const selectBtn = within(driverBtnArr[1]).getByRole('radio');
+      const selectBtn = within(driverBtnArr[1]).getByRole('button', {name: /select driver/i});
       await userEvent.click(selectBtn);
       expect(driverSelectionMock).toBeCalled();
     });

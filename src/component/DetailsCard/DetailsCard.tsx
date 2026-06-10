@@ -1,74 +1,45 @@
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-
-import Avatar from '@mui/material/Avatar';
-import styles from 'styles/design-systems.module.scss';
 import './DetailsCard.scss';
 import {DetailsCardProps} from './propTypes/types.ts';
 
 function DetailsCard({
-  iconBackground,
   icon,
-  cardBackground,
+  iconBackground,
+  gradientAvatar,
   mainInfo,
   mainInfoColor,
   secondaryInfo,
   secondaryInfoColor,
+  className = '',
 }: DetailsCardProps) {
   return (
-    // Initial width of card is defined using flexBasis
-    <Card
-      className={'details-card'}
-      variant={'outlined'}
-      sx={{
-        borderRadius: 3,
-        flexBasis: 650,
-        height: 110,
-        backgroundColor: cardBackground,
-      }}>
-      <CardContent
-        sx={{
-          padding: 1,
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-        }}>
-        <Stack
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          width={'100%'}
-          height={'100%'}>
+    <div className={`glass-card details-card ${className}`}>
+      <div className="details-card-content">
+        {gradientAvatar ? (
+          <div className="gradient-avatar">
+            <div className="avatar-ring" />
+            <div className="avatar-inner">
+              <span className="avatar-emoji">👤</span>
+            </div>
+          </div>
+        ) : icon ? (
           <div className="icon-container">
-            <Avatar
-              sx={{
-                width: '60px',
-                height: '60px',
-                bgcolor: iconBackground,
-              }}>
-              <img src={icon} alt="no-image-present"></img>
-            </Avatar>
+            <div className="details-avatar" style={{backgroundColor: iconBackground || 'var(--glass-bg)'}}>
+              <img src={icon} alt="icon" />
+            </div>
           </div>
-          <div className="info-container">
-            <Typography
-              fontSize={styles.fontSizeXl}
-              fontWeight={styles.fontWeightNormal}
-              sx={{color: mainInfoColor}}>
-              {mainInfo}
-            </Typography>
-            <Typography
-              fontSize={styles.fontSizeMd}
-              fontWeight={styles.fontWeightNormal}
-              sx={{color: secondaryInfoColor}}>
+        ) : null}
+        <div className="info-container">
+          <div className="main-info" style={{color: mainInfoColor || 'var(--text-primary)'}}>
+            {mainInfo}
+          </div>
+          {secondaryInfo && (
+            <div className="secondary-info" style={{color: secondaryInfoColor || 'var(--text-secondary)'}}>
               {secondaryInfo}
-            </Typography>
-          </div>
-        </Stack>
-      </CardContent>
-    </Card>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
 

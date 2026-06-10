@@ -7,7 +7,7 @@
 
   .productText {
     font-weight: $font-normal;
-    color: $charcoal-dark;
+    color: rgba(255, 255, 255, 0.9);
   }
   .quantity {
     font-weight: $font-bold;
@@ -15,7 +15,7 @@
   }
   .stock {
     font-weight: $font-normal;
-    color: $charcoal-dark;
+    color: rgba(255, 255, 255, 0.9);
   }
   .language-select {
     @extend .language-selection-dropdown;

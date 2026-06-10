@@ -1,0 +1,32 @@
+@import 'src/styles/design-systems.module';
+
+/* BlueBorderButton - glassy border, dark background */
+.MuiButton-root {
+  &.btn-press {
+    min-width: 120px;
+    margin-right: 2%;
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    text-transform: none !important;
+    border-radius: 8px !important;
+    padding: 8px 24px !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    box-shadow: none !important;
+    transition: all 0.2s ease !important;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.12) !important;
+      border-color: rgba(255, 255, 255, 0.2) !important;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+}

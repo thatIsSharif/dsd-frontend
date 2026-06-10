@@ -16,10 +16,10 @@
     .search-input {
       height: 44px;
       border-radius: 22px;
-      color: $gray-muted;
+      color: rgba(255, 255, 255, 0.7);
       font-size: $font-sm;
       font-weight: $font-light;
-      background-color: $white-pure;
+      background: rgba(255, 255, 255, 0.06);
       opacity: 1;
     }
 
@@ -29,7 +29,7 @@
       padding: 0%;
     }
     .text-field .MuiInputBase-input::placeholder {
-      color: $gray-muted;
+      color: rgba(255, 255, 255, 0.35);
       opacity: 1;
     }
 
@@ -38,63 +38,73 @@
     }
 
     .text-field .MuiOutlinedInput-root fieldset {
-      border: 1px solid transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .text-field .MuiOutlinedInput-root:hover fieldset {
-      border: 1px solid $black;
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .text-field .MuiOutlinedInput-root.Mui-focused fieldset {
-      border: 1px solid $border-blue-bright;
+      border: 1px solid #7C3AED;
     }
 
     .text-field
       .MuiOutlinedInput-root
       .MuiInputBase-input:not(:placeholder-shown)
       ~ fieldset {
-      border: 1px solid $border-blue-bright;
+      border: 1px solid #7C3AED;
     }
 
     .icon {
       padding-top: 1px;
-      width: 12px;
-      height: 12px;
-      color: $gray-muted;
+      width: 14px;
+      height: 14px;
+      color: rgba(255, 255, 255, 0.4);
+      opacity: 0.7;
     }
   }
 }
 .select-text {
-  color: $gray-charcoal;
+  color: rgba(255, 255, 255, 0.6);
   font-weight: $font-normal;
   margin-right: 8px;
 }
 
 .toggle-button-group {
   .MuiToggleButton-root {
-    color: black;
+    color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.04);
+
     &.Mui-selected {
-      background-color: $deep-navy;
-      color: $white-pure;
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.25), rgba(168, 85, 247, 0.15));
+      color: #A855F7;
+      border-color: rgba(124, 58, 237, 0.3);
 
       &:hover {
-        background-color: $deep-navy;
+        background: linear-gradient(135deg, rgba(124, 58, 237, 0.35), rgba(168, 85, 247, 0.25));
       }
     }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
     &.MuiToggleButtonGroup-grouped {
       margin: 8px 10px;
-      border: 0;
-      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
 
       &.Mui-disabled {
-        border: 0;
+        border: 1px solid rgba(255, 255, 255, 0.08);
       }
     }
 
     .MuiToggleButtonGroup-middleButton,
     .MuiToggleButtonGroup-lastButton {
       margin-left: -1px;
-      border-left: 1px solid transparent;
+      border-left: 1px solid rgba(255, 255, 255, 0.08);
     }
   }
 }

@@ -1,0 +1,19 @@
+@import 'src/styles/design-systems.module';
+
+/* BlueButton uses gradient-btn and btn-press from index.css */
+/* Additional overrides for consistent sizing */
+.gradient-btn {
+  min-width: 120px;
+  border-radius: 8px !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  text-transform: none !important;
+  padding: 8px 24px !important;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none !important;
+  }
+}

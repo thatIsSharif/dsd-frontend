@@ -4,3 +4,29 @@
   object-fit: contain;
   margin-left: 2px;
 }
+
+/* Dark theme overrides for the sign-out dropdown */
+.MuiCollapse-root .MuiListItemButton-root {
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 100px !important;
+  min-width: max-content !important;
+  padding: 8px 20px 8px 16px !important;
+  gap: 8px !important;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  .logout-icon {
+    filter: brightness(0) invert(1) !important;
+  }
+
+  .MuiListItemText-primary {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+  }
+}

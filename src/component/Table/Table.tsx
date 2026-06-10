@@ -85,25 +85,13 @@ function CustomPagination({
     <Pagination
       sx={{
         '& .MuiPaginationItem-root': {
-          minWidth: '22px',
-          height: '26px',
-          backgroundColor: styles.whitePure,
-          color: styles.black,
+          minWidth: '32px',
+          height: '32px',
           fontSize: styles.fontSizeXsm,
-          '&:hover': {
-            backgroundColor: styles.bgColorWhiteSmoke,
-          },
-          '&.Mui-selected': {
-            backgroundColor: styles.bgGrayishBlue,
-            color: styles.whitePure,
-            '&:hover': {
-              backgroundColor: styles.bgGrayishBlue,
-            },
-          },
         },
       }}
       variant="outlined"
-      shape="rounded"
+      shape="circular"
       page={currentPage + 1}
       count={totalPageCount}
       renderItem={props => <PaginationItem {...props} />}
@@ -193,24 +181,25 @@ export default function Table({
         overflow: 'hidden',
         minHeight: rows?.length > 0 ? minHeight : 400,
         maxHeight: rows?.length > 0 ? minHeight : 400,
-        color: styles.grayCharcoal,
+        color: 'rgba(255, 255, 255, 0.85)',
         backgroundColor: 'transparent',
+        fontFamily: "'Space Grotesk', sans-serif",
         '& .MuiDataGrid-menuIcon': {
           visibility: 'visible',
           width: 'auto',
         },
         '& .MuiDataGrid-menuIconButton': {
-          color: styles.whitePure,
+          color: 'rgba(255, 255, 255, 0.7)',
         },
         '& .MuiDataGrid-columnSeparator': {
           display: 'none',
         },
         '& .MuiDataGrid-columnHeadersInner': {
           width: '100%',
-          backgroundColor: styles.bgGrayishBlue,
+          backgroundColor: 'transparent',
         },
         '& .MuiDataGrid-sortIcon': {
-          color: styles.whitePure,
+          color: '#7C3AED',
           visibility: 'visible',
           opacity: 1,
           width: 'auto',
@@ -223,24 +212,29 @@ export default function Table({
         },
         '& .MuiDataGrid-main': {
           borderRadius: '8px',
-          backgroundColor: styles.whitePure,
-          border: withBorder ? `1px solid ${styles.grayMuted}` : 'none',
+          backgroundColor: 'transparent',
+          border: withBorder ? '1px solid rgba(255, 255, 255, 0.08)' : 'none',
         },
         '& .MuiDataGrid-row.Mui-hovered': {
           backgroundColor: 'transparent',
         },
         '& .MuiDataGrid-row': {
-          backgroundColor: styles.whitePure,
+          backgroundColor: 'transparent',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
           '&:hover': {
-            backgroundColor: 'transparent',
+            backgroundColor: 'rgba(255, 255, 255, 0.04)',
           },
         },
         '& .MuiDataGrid-row:last-child': {
-          borderBottom: `1px solid ${styles.borderGrayMuted}`,
+          borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
         },
         [`& .${gridClasses.cell}`]: {
           paddingTop: 0.4,
           paddingLeft: 3,
+          color: 'rgba(255, 255, 255, 0.8)',
+          fontFamily: "'Space Grotesk', sans-serif",
+          fontSize: '13px',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
         },
         [`& .${gridClasses.cell}:focus, .${gridClasses.cell}:focus-within,  & .${gridClasses.columnHeader}:focus`]:
           {
@@ -248,12 +242,13 @@ export default function Table({
           },
         [`& .${gridClasses.columnHeader}`]: {
           paddingLeft: 3,
-          color: styles.whitePure,
-          backgroundColor: styles.bgGrayishBlue,
+          color: '#7C3AED',
+          backgroundColor: 'transparent',
+          fontFamily: "'Space Grotesk', sans-serif",
         },
         [`& .${gridClasses.columnHeaderTitle}`]: {
-          fontWeight: styles.fontWeightNormal,
-          color: styles.whitePure,
+          fontWeight: 600,
+          color: '#7C3AED',
         },
         ['.MuiDataGrid-footerContainer']: {
           py: 3,

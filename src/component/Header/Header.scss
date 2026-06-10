@@ -1,15 +1,38 @@
 @import 'src/styles/design-systems.module';
 
-.header-container {
-  display: flex;
-  padding: 16px;
-  margin-bottom: 20px;
-  height: 100%;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(13, 13, 13, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 
-  .selector-container {
-    position: relative;
+  .header-container {
+    display: flex;
+    padding: 16px;
+    margin-bottom: 20px;
+    height: 100%;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+
+    .header-children {
+      display: flex;
+      align-items: center;
+    }
+
+    .selector-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
   }
+}
+
+/* Nagarro logo tinted with purple hue */
+:where(.header-icon) {
+  filter: hue-rotate(240deg) brightness(1.2) saturate(1.5);
 }

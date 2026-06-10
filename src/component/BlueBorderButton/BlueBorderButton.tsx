@@ -1,17 +1,13 @@
-import {styled} from '@mui/material';
-import Button from '@mui/material/Button';
-import styles from 'styles/design-systems.module.scss';
+import Button, {ButtonProps} from '@mui/material/Button';
+import './BlueBorderButton.scss';
 
-const BlueBorderButton = styled(Button)({
-  minWidth: 120,
-  marginRight: '2%',
-  color: styles.deepNavy,
-  backgroundColor: styles.bgColorBeigeLight,
-  border: `1px solid ${styles.deepNavy}`,
-  boxShadow: 'none',
-  borderRadius: '3px',
-  textTransform: 'none',
-  '&:hover': {backgroundColor: styles.bgColorWhiteSmoke},
-});
+function BlueBorderButton({className = '', ...props}: ButtonProps) {
+  return (
+    <Button
+      className={`btn-press ${className}`}
+      {...props}
+    />
+  );
+}
 
 export default BlueBorderButton;

@@ -1,34 +1,96 @@
+.navigation-card-wrapper {
+  cursor: pointer;
+}
+
+.navigation-card {
+  padding: 24px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
+    border-color: rgba(124, 58, 237, 0.3) !important;
+
+    .arrow-icon {
+      transform: translateX(4px);
+    }
+
+    .nav-card-arrow {
+      background: rgba(124, 58, 237, 0.3);
+    }
+  }
+
+  .nav-card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    gap: 16px;
+  }
+
+  .nav-card-icon-bg {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: rgba(124, 58, 237, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+    }
+  }
+
+  .nav-card-text {
+    flex: 1;
+  }
+
+  .nav-card-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .nav-card-subtitle {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  .nav-card-arrow {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-end;
+    transition: background 0.3s ease;
+
+    .arrow-icon {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.3s ease;
+    }
+  }
+}
+
+// Backward compat for nav-icon used by SidebarData
 .nav-icon {
   height: 20px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   padding-left: 0;
-}
-
-.card-icon-container {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  height: min-content;
-  padding-top: 4px;
-  flex: 0.5;
-}
-
-.card-text-container {
-  padding-left: 6px;
-  flex: 1;
-}
-
-.bottom-icon-container {
-  position: absolute;
-  right: 0px;
-  bottom: 0px;
-  display: flex;
-  justify-content: flex-end;
-  width: min-content;
-}
-
-.bottom-icon {
-  width: 18px;
 }

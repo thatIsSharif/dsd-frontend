@@ -105,11 +105,10 @@ function Login() {
         </Stack>
         <div className={'form-container'}>
           <Typography
-            fontSize={styles.fontSizeXl}
+            fontSize={'32px'}
             component={'h2'}
             mb={3}
-            color={styles.charcoalDark}
-            fontWeight={styles.fontWeightBolder}>
+            sx={{color: 'rgba(255,255,255,0.9)', fontFamily: '"Space Grotesk", sans-serif', fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase'}}>
             {t('login.title')}
           </Typography>
           {/*----------------------------------------login form--------------------------------------------------*/}
