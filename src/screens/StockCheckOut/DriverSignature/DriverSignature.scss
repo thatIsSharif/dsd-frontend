@@ -1,0 +1,43 @@
+//all css related to diver signature form must go inside this
+@import 'src/styles/design-systems.module';
+.signature-label {
+  color: $gray-charcoal;
+  font-size: $font-md;
+  font-weight: $font-normal;
+  margin-bottom: 1%;
+}
+.wrapper {
+  margin-top: 0%;
+  border-radius: 8px;
+  .signature-container {
+    height: 320px;
+    padding: 20px;
+    @include flex-center;
+    display: flex;
+
+    .signature-btn {
+      background-color: $deep-navy;
+      color: $white-pure;
+      padding: 1.2% 4%;
+      font-weight: $font-normal;
+      font-size: $font-md;
+      border-radius: 8px;
+      text-transform: none;
+    }
+
+    .img-container {
+      height: 100%;
+      width: min-content;
+
+      img {
+        height: 100%;
+        background-color: $white-pure;
+      }
+    }
+
+    .loading-spinner {
+      width: min-content;
+    }
+  }
+}
+

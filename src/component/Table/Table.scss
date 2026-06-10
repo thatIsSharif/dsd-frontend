@@ -1,0 +1,147 @@
+@import 'src/styles/design-systems.module';
+$block-margin: 14px;
+.filter-item {
+  &.MuiDataGrid-menuList {
+    padding: 0;
+    min-width: 10px;
+
+    .MuiDivider-root.MuiDivider-fullWidth {
+      margin: 0;
+    }
+
+    &
+      .MuiButtonBase-root.MuiMenuItem-root.MuiMenuItem-gutters.MuiMenuItem-root.MuiMenuItem-gutters[role='menuitem'] {
+      padding: 10px;
+
+      .MuiSvgIcon-root.MuiSvgIcon-fontSizeSmall {
+        font-size: $font-md;
+      }
+
+      .MuiTypography-root {
+        font-size: $font-xsm;
+      }
+
+      .MuiListItemIcon-root {
+        min-width: 22px;
+      }
+    }
+  }
+}
+
+.MuiDataGrid-filterForm {
+  padding: 4px;
+
+  .MuiNativeSelect-select.MuiNativeSelect-standard.MuiInputBase-input.MuiInput-input {
+    font-size: $font-xsm;
+  }
+
+  .MuiInputBase-input.MuiInput-input {
+    font-size: $font-xsm;
+  }
+}
+
+.no-data-img {
+  width: 88px;
+}
+
+.stock-cell {
+  padding-block: $block-margin;
+}
+
+.stock-item-cell {
+  padding-left: 36px;
+  padding-block: $block-margin;
+}
+.attachment-cell {
+  color: $charcoal-dark;
+}
+
+.attachment-icon {
+  margin-top: 2px;
+  object-fit: contain;
+  width: 16px;
+}
+.attachment-download {
+  &:hover {
+    color: $indigo-deep;
+  }
+}
+
+.action-cell {
+  padding-bottom: 16px;
+  padding-top: 14px;
+}
+
+.action-button {
+  box-shadow: none;
+  padding-block: 2px;
+  padding-inline: 20px;
+  text-transform: none;
+  font-size: $font-sm;
+  font-weight: $font-normal;
+  border-radius: 33px;
+  &:hover {
+    background-color: $bg-white-smoke;
+  }
+}
+
+.my-order-id-cell {
+  padding-inline: 10%;
+  width: 90%;
+  text-align: center;
+}
+.my-order-cell {
+  width: auto;
+  padding: 5%;
+}
+
+.table-dialog {
+  & .MuiDialogContent-root {
+    padding-bottom: 8px;
+    padding-top: 30px;
+  }
+  & .MuiPaper-root.MuiDialog-paper {
+    border-radius: 12px;
+    padding-bottom: 0px;
+  }
+}
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .cross-container {
+    width: min-content;
+    padding-bottom: 28px;
+  }
+
+  .cross-img {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+.payment-method {
+  padding-left: 20px;
+}
+
+.customer-id-header {
+  padding-left: 40px;
+}
+
+.customer-id-cell {
+  padding-left: 4%;
+}
+
+.gross-amount-cell {
+  padding-left: 14%;
+}
+
+.delivery-customer-id-header {
+  padding-left: 60px;
+}
+
+.delivery-customer-id-cell {
+  padding-left: 16%;
+}
+

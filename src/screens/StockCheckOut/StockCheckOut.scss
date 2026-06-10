@@ -1,0 +1,52 @@
+@import 'src/styles/design-systems.module';
+//All css related to this screen should go inside this
+.select-driver-screen {
+  padding-right: 3%;
+  padding-left: 3%;
+  margin-top: 30px;
+
+  .productText {
+    font-weight: $font-normal;
+    color: $charcoal-dark;
+  }
+  .quantity {
+    font-weight: $font-bold;
+    color: $green-mint;
+  }
+  .stock {
+    font-weight: $font-normal;
+    color: $charcoal-dark;
+  }
+  .language-select {
+    @extend .language-selection-dropdown;
+  }
+  .buttons-group {
+    @extend .position-bottom;
+  }
+
+  .description-header {
+    padding-left: 46px;
+  }
+
+  .description-cell {
+    padding-bottom: 5%;
+    @media screen and (min-width: $breakpoint-xl) {
+      padding-bottom: 3%;
+    }
+  }
+
+  .quantity-cell {
+    padding-bottom: 22.2%;
+    @media screen and (min-width: $breakpoint-xl) {
+      padding-bottom: 10%;
+    }
+  }
+
+  .uom-cell {
+    padding-bottom: 42.4%;
+    @media screen and (min-width: $breakpoint-xl) {
+      padding-bottom: 15%;
+    }
+  }
+}
+

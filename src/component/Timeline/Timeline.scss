@@ -1,0 +1,122 @@
+@import 'src/styles/design-systems.module';
+
+.container-timeline-outer {
+  background-color: transparent; /* Replace var(--bg-color) with the desired background color */
+  @include flex-column;
+  @include flex-center;
+  position: relative;
+  top: -20px;
+
+  .container-timeline {
+    padding-inline: 2%;
+    display: flex;
+    @include flex-row;
+    height: 120px;
+    @media screen and (min-width: $breakpoint-xl) {
+      height: 160px;
+    }
+    width: 100%;
+    background: $white-pure;
+    border-radius: 8px;
+    align-items: center;
+    padding: 0 4%;
+  }
+
+  .step-item {
+    @include flex-column;
+    @include flex-center;
+    @extend .font-xsm;
+    width: 10%;
+    position: relative;
+    height: 90%;
+    justify-content: start;
+  }
+
+  .timeline-hr {
+    height: 5px;
+    flex: 1;
+    border-radius: 10px;
+    margin-bottom: 26px;
+    @media screen and (min-width: $breakpoint-xl) {
+      margin-bottom: 39px;
+    }
+  }
+
+  .step {
+    margin-top: 26px;
+    @media screen and (min-width: $breakpoint-xl) {
+      margin-top: 40px;
+    }
+    width: 24px;
+    height: 24px;
+    display: flex;
+    @include flex-center;
+    z-index: 2;
+    position: relative;
+    background-color: $white-pure;
+    border-radius: 50%;
+    font-weight: $font-bolder;
+    color: $white-pure;
+  }
+
+  .steps-done {
+    height: 24px;
+    width: 24px;
+    border-radius: 10px;
+  }
+
+  img {
+    height: 24px;
+    width: 24px;
+  }
+
+  .steps-wrapper {
+    position: absolute;
+    top: 49%;
+    @media screen and (min-width: $breakpoint-xl) {
+      top: 54%;
+    }
+    @include flex-column;
+    @include flex-center;
+  }
+
+  .steps {
+    color: $gray-charcoal;
+    @include flex-row;
+    @include flex-center;
+    word-wrap: break-word;
+    font-size: $font-xsm;
+    font-weight: $font-normal;
+    width: 160%;
+    min-width: 68px;
+    text-align: center;
+    padding-bottom: 1%;
+  }
+
+  .step-item:first-of-type .steps-wrapper > .steps:first-child {
+    padding-left: 3%;
+  }
+  .step-item:last-of-type .steps-wrapper > .steps:first-child {
+    padding-right: 14%;
+  }
+
+  .step-indicator {
+    display: flex;
+    justify-content: center;
+    font-size: $font-xxsm;
+    font-weight: $font-normal;
+
+    &.in-progress {
+      color: $primary-blue;
+    }
+
+    &.completed {
+      color: $vibrant-green;
+    }
+
+    &.pending {
+      color: $gray-muted;
+    }
+  }
+}
+

@@ -1,0 +1,179 @@
+.language-selection-dropdown {
+  position: absolute;
+  right: 10px;
+  top: 2px;
+}
+.language-dropdown {
+  position: absolute;
+  right: 138px;
+  top: -28px;
+}
+.sign-out-dropdown {
+  position: absolute;
+  right: 20px;
+  top: -42px;
+}
+//IMPORTANT! Only these classes should be used for defining font size of each element so we can use media queries in future to add responsiveness
+.font-xxl {
+  font-size: $font-xxl; //28px
+}
+
+.font-xl {
+  font-size: $font-xl; //25px
+}
+
+.font-lg-plus {
+  font-size: $font-lg-plus; //22px
+}
+
+.font-lg {
+  font-size: $font-lg; //18px
+}
+.font-md {
+  font-size: $font-md; //16px
+}
+.font-sm {
+  font-size: $font-sm; //14px
+}
+.font-xsm {
+  font-size: $font-xsm; //12px
+}
+
+//font-weights:
+.font-boldest {
+  font-weight: $font-boldest; // 800
+}
+
+.font-bold {
+  font-weight: $font-bold; // 700
+}
+
+.font-bolder {
+  font-weight: $font-bolder; // 600
+}
+
+.font-normal {
+  font-weight: $font-normal; // 500
+}
+
+.font-light {
+  font-weight: $font-light; // 400
+}
+
+.font-lighter {
+  font-weight: $font-lighter; // 300
+}
+
+//Can be used to center anything
+.center-element {
+  @include center-element;
+}
+
+.responsive-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.transparent-textbox {
+  background-color: $bg-black-translucent;
+  color: $white-pure;
+  font-weight: 300;
+  position: absolute;
+  z-index: 1;
+  bottom: 5%;
+  left: 10px;
+  right: 10px;
+  padding: 10px 15px 20px 15px;
+  border-radius: 4px;
+}
+
+%common-form-rules {
+  .form-label {
+    font-weight: $font-light;
+    color: $charcoal-dark;
+    &.form-label-error {
+      color: $red-error;
+    }
+  }
+  .form-input {
+    color: $charcoal-dark;
+    background-color: $white-pure;
+    border: 0.6px solid $gray-muted;
+    height: 40px;
+    border-radius: 5px;
+    font-weight: $font-light;
+    padding: 0 10px;
+    margin-bottom: 8px;
+    width: 100%;
+    &[type='password'] {
+      font-weight: $font-bolder;
+    }
+    &:focus-visible {
+      outline-color: $charcoal-dark;
+    }
+    &::placeholder {
+      color: $gray-muted;
+    }
+  }
+  .form-input-error {
+    outline: 1px solid $red-error !important;
+    //  Reason for adding 'important' to this property was that outline was being override on focus visible
+    //  but it should stay red until error is resolved
+  }
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.position-bottom {
+  display: flex;
+  position: absolute;
+  width: 98%;
+  bottom: 5px;
+  justify-content: flex-end;
+}
+
+.dialog-position-end {
+  & .MuiDialog-container {
+    justify-content: flex-end;
+  }
+}
+
+.dialog-position-center {
+  & .MuiDialog-container {
+    justify-content: center;
+    align-items: center; 
+    margin-left: 20%;
+  }
+}
+
+.attachment {
+  width: 100%;
+  object-fit: contain;
+}
+.attachment-download {
+  &:hover {
+    color: $indigo-deep;
+  }
+}
+
+.display-none {
+  display: none;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: $white-pure;
+  z-index: 3;
+  height: 106px;
+}
+
