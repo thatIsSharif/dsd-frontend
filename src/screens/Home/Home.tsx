@@ -4,6 +4,7 @@ import {useToast} from 'component/Toast/ToastContext';
 import {getStockSummary, getDrivers} from 'mock/api';
 import DetailsCard from 'component/DetailsCard/DetailsCard';
 import NavigationCard from 'component/NavigationCard/NavigationCard';
+import Header from 'component/Header/Header';
 import {SidebarData} from 'component/SidebarNew/SidebarData';
 import './Home.scss';
 
@@ -143,6 +144,7 @@ function Home() {
 
   return (
     <div className="home-screen page-enter">
+      <Header />
       <div className="home-container">
         <h1 className="home-title">Dashboard</h1>
 

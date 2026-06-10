@@ -1,6 +1,6 @@
 import {ReactNode} from 'react';
 
 export interface HeaderProps {
-  children: ReactNode;
+  children?: ReactNode;
   showLanguageSelector?: boolean;
 }

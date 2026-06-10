@@ -13,6 +13,7 @@ import * as Yup from 'yup';
 import logo from 'assets/PNG/NagarroLogoWhite.png';
 import bgImage from 'assets/WEBP/LoginBackground.webp';
 import LanguageSelect from 'component/LanguageSelect/LanguageSelect.tsx';
+import ThemeToggle from 'component/ThemeToggle/ThemeToggle';
 import {useTranslation} from 'react-i18next';
 import styles from 'styles/design-systems.module.scss';
 import './Login.scss';
@@ -73,7 +74,10 @@ function Login() {
         px={4}
         py={2}>
         <img src={logo} className={'logo'} alt={'logo'} />
-        <LanguageSelect />
+        <Stack direction="row" spacing={1} alignItems="center">
+          <ThemeToggle />
+          <LanguageSelect />
+        </Stack>
       </Stack>
       <div className={'form-container'}>
         <Typography
