@@ -1,0 +1,146 @@
+@import 'colors';
+@import 'variables';
+
+// Dark mode overrides for the entire application
+body.dark-mode {
+  background-color: $dark-bg-primary !important;
+  color: $dark-text-primary;
+
+  // Override MUI CssBaseline background
+  background: $dark-bg-primary;
+
+  // Headers
+  .header {
+    background-color: $dark-header-bg !important;
+
+    .header-container {
+      background-color: $dark-header-bg;
+    }
+  }
+
+  // Cards
+  .MuiCard-root,
+  .MuiPaper-root {
+    &:not(.MuiCardActionArea-root) {
+      background-color: $dark-bg-card;
+      color: $dark-text-primary;
+    }
+  }
+
+  .MuiCardContent-root {
+    color: $dark-text-primary;
+  }
+
+  .MuiTypography-root {
+    color: $dark-text-primary;
+
+    &.MuiTypography-colorTextSecondary {
+      color: $dark-text-secondary;
+    }
+  }
+
+  // Sidebar
+  .sidebar-nav {
+    background: linear-gradient(
+      180deg,
+      rgba(14, 14, 30, 1) 0%,
+      rgba(8, 8, 18, 1) 100%
+    ) !important;
+
+    .sidebar-link {
+      color: $dark-text-secondary;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+      }
+
+      &.selected-nav {
+        color: $pale-sky-blue;
+        background-color: rgba(111, 123, 160, 0.3);
+      }
+    }
+  }
+
+  // Language Select
+  .language-select {
+    .MuiListItemButton-root {
+      color: $dark-text-primary !important;
+    }
+  }
+
+  // Navigation cards on dashboard
+  .navigation-card {
+    .MuiCardActionArea-root {
+      .MuiCardContent-root {
+        .MuiTypography-root {
+          color: $dark-text-primary;
+        }
+      }
+    }
+  }
+
+  // Buttons and inputs
+  .MuiOutlinedInput-root {
+    fieldset {
+      border-color: $dark-border;
+    }
+    &:hover fieldset {
+      border-color: $dark-text-muted;
+    }
+    input {
+      color: $dark-text-primary;
+    }
+  }
+
+  .MuiInputLabel-root {
+    color: $dark-text-secondary;
+  }
+
+  // Download container
+  .download-container {
+    .MuiStack-root {
+      background: linear-gradient(
+        91.03deg,
+        rgba(40, 40, 70, 1) 15.38%,
+        rgba(30, 30, 50, 1) 101.13%
+      ) !important;
+    }
+  }
+
+  // Details cards
+  .details-card {
+    .MuiCardContent-root {
+      .MuiTypography-root {
+        color: $dark-text-primary;
+      }
+    }
+  }
+
+  // Screen backgrounds
+  .avl-stock-screen,
+  .login-page,
+  .forgot-password-screen {
+    background-color: $dark-bg-primary;
+  }
+
+  // Data grid
+  .MuiDataGrid-root {
+    background-color: $dark-bg-card;
+    color: $dark-text-primary;
+    border-color: $dark-border;
+
+    .MuiDataGrid-cell {
+      color: $dark-text-primary;
+      border-bottom-color: $dark-border;
+    }
+
+    .MuiDataGrid-columnHeaders {
+      background-color: $dark-bg-elevated;
+      color: $dark-text-primary;
+    }
+
+    .MuiTablePagination-root {
+      color: $dark-text-secondary;
+    }
+  }
+}

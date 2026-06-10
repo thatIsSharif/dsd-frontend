@@ -1,3 +1,4 @@
+import DarkModeToggle from 'component/DarkModeToggle/DarkModeToggle.tsx';
 import LanguageSelect from 'component/LanguageSelect/LanguageSelect.tsx';
 import SignOutSelect from 'component/SignOutSelect/SignOutSelect.tsx';
 import './Header.scss';
@@ -11,7 +12,8 @@ export default function Header({
     <header className={'header'}>
       <div className={'header-container'}>
         <div>{children}</div>
-        <div className={'selector-container'}>
+        <div className={'selector-container'} style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+          <DarkModeToggle />
           {showLanguageSelector && (
             <span className={'language-dropdown'}>
               <LanguageSelect />

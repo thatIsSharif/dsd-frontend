@@ -20,13 +20,14 @@ function DetailsCard({
   return (
     // Initial width of card is defined using flexBasis
     <Card
-      className={'details-card'}
+      className={'details-card hover-lift'}
       variant={'outlined'}
       sx={{
         borderRadius: 3,
         flexBasis: 650,
         height: 110,
         backgroundColor: cardBackground,
+        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
       }}>
       <CardContent
         sx={{

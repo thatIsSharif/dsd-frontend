@@ -1,0 +1,19 @@
+<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Saffron stripe -->
+  <path d="M0 0H30V10H0V0Z" fill="#FF9933"/>
+  <!-- White stripe -->
+  <path d="M0 10H30V20H0V10Z" fill="#FFFFFF"/>
+  <!-- Green stripe -->
+  <path d="M0 20H30V30H0V20Z" fill="#138808"/>
+  <!-- Ashoka Chakra circle -->
+  <circle cx="15" cy="15" r="4" stroke="#000080" stroke-width="0.6" fill="none"/>
+  <!-- Ashoka Chakra hub -->
+  <circle cx="15" cy="15" r="0.8" fill="#000080"/>
+  <!-- Ashoka Chakra spokes (simplified - 8 spokes for visibility at small size) -->
+  <line x1="15" y1="11.2" x2="15" y2="18.8" stroke="#000080" stroke-width="0.4"/>
+  <line x1="11.2" y1="15" x2="18.8" y2="15" stroke="#000080" stroke-width="0.4"/>
+  <line x1="12.3" y1="12.3" x2="17.7" y2="17.7" stroke="#000080" stroke-width="0.4"/>
+  <line x1="12.3" y1="17.7" x2="17.7" y2="12.3" stroke="#000080" stroke-width="0.4"/>
+  <!-- Ashoka Chakra outer ring dashes (simulating the 24 spokes) -->
+  <circle cx="15" cy="15" r="4.5" stroke="#000080" stroke-width="0.3" stroke-dasharray="1.18, 1.18" fill="none"/>
+</svg>

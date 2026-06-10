@@ -17,7 +17,7 @@ function NavigationCard({item}: NavigationCardProps) {
   return (
     <Stack>
       <Card
-        className={'navigation-card'}
+        className={'navigation-card hover-lift'}
         variant={'outlined'}
         sx={{
           borderRadius: 2,
@@ -31,6 +31,7 @@ function NavigationCard({item}: NavigationCardProps) {
             lg: '256px',
             xl: '300px',
           },
+          transition: 'transform 0.3s ease, box-shadow 0.3s ease',
         }}>
         <CardActionArea
           onClick={() => navigate(item.path)}

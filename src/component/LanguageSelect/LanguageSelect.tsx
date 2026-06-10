@@ -10,12 +10,57 @@ import ListItemText from '@mui/material/ListItemText';
 
 import EnglishIcon from 'assets/SVG/English.svg';
 import FrenchIcon from 'assets/SVG/French.svg';
+import HindiIcon from 'assets/SVG/Hindi.svg';
 import './LanguageSelect.scss';
 
 import {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import styles from 'styles/design-systems.module.scss';
 import {languages} from 'utilities/enums.ts';
+
+// Language configuration
+const languageOptions = [
+  {
+    key: languages.ENGLISH,
+    label: 'English',
+    testId: 'en-btn',
+    icon: EnglishIcon,
+    alt: 'english',
+  },
+  {
+    key: languages.FRENCH,
+    label: 'French',
+    testId: 'fr-btn',
+    icon: FrenchIcon,
+    alt: 'french',
+  },
+  {
+    key: languages.HINDI,
+    label: 'हिन्दी',
+    testId: 'hi-btn',
+    icon: HindiIcon,
+    alt: 'hindi',
+  },
+];
+
+function LanguageButton({langKey}: {langKey: string}) {
+  const option = languageOptions.find(opt => opt.key === langKey)!;
+  return (
+    <>
+      <ListItemIcon data-testid={option.testId}>
+        <Avatar
+          alt={option.alt}
+          src={option.icon}
+          sx={{
+            width: 30,
+            height: 30,
+          }}
+        />
+      </ListItemIcon>
+      <ListItemText className={'language-select-text'} primary={option.label} />
+    </>
+  );
+}
 
 function LanguageSelect() {
   //   Styles for list
@@ -50,22 +95,18 @@ function LanguageSelect() {
   function updateCurrentLanguage(selectedLanguage: string): void {
     localStorage.setItem('currentLanguage', selectedLanguage);
     setCurrentLanguage(selectedLanguage);
-  }
-
-  // Function to handle language change
-  function handleClick(): void {
-    const newLanguage =
-      currentLanguage === languages.ENGLISH
-        ? languages.FRENCH
-        : languages.ENGLISH;
-    updateCurrentLanguage(newLanguage);
-    changeLanguage(newLanguage);
+    changeLanguage(selectedLanguage);
+    setOpen(false);
   }
 
   // Function to hide and show dropdown
   function handleToggle() {
     setOpen(!open);
   }
+
+  const availableLanguages = languageOptions.filter(
+    opt => opt.key !== currentLanguage,
+  );
 
   return (
     <>
@@ -77,7 +118,7 @@ function LanguageSelect() {
           data-testid={'language-select-btn'}
           className={'language-select-btn'}
           onClick={handleToggle}>
-          {currentLanguage === 'en' ? <EnglishButton /> : <FrenchButton />}
+          <LanguageButton langKey={currentLanguage} />
 
           <Button
             data-testid={'expand-btn'}
@@ -103,16 +144,15 @@ function LanguageSelect() {
             data-testid={'language-select-menu'}
             component="div"
             disablePadding>
-            <ListItemButton
-              className={'language-select-btn'}
-              sx={{mt: '6px'}}
-              onClick={handleClick}>
-              {currentLanguage !== languages.ENGLISH ? (
-                <EnglishButton />
-              ) : (
-                <FrenchButton />
-              )}
-            </ListItemButton>
+            {availableLanguages.map(option => (
+              <ListItemButton
+                key={option.key}
+                className={'language-select-btn'}
+                sx={{mt: '6px'}}
+                onClick={() => updateCurrentLanguage(option.key)}>
+                <LanguageButton langKey={option.key} />
+              </ListItemButton>
+            ))}
           </List>
         </Collapse>
       </List>
@@ -121,39 +161,4 @@ function LanguageSelect() {
 }
 
 export default LanguageSelect;
-
-// Buttons for French and English language
-function FrenchButton() {
-  return (
-    <>
-      <ListItemIcon data-testid={'fr-btn'}>
-        <Avatar
-          alt="french"
-          src={FrenchIcon}
-          sx={{
-            width: 30,
-            height: 30,
-          }}
-        />
-      </ListItemIcon>
-      <ListItemText className={'language-select-text'} primary="French" />
-    </>
-  );
-}
-function EnglishButton() {
-  return (
-    <>
-      <ListItemIcon data-testid={'en-btn'}>
-        <Avatar
-          src={EnglishIcon}
-          sx={{
-            width: 30,
-            height: 30,
-          }}
-        />
-      </ListItemIcon>
-      <ListItemText primary="English" />
-    </>
-  );
-}
 

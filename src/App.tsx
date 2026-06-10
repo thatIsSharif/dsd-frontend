@@ -1,11 +1,13 @@
 import {createTheme, CssBaseline, ThemeProvider} from '@mui/material';
 
 import i18n from 'i18next';
-import {lazy, Suspense} from 'react';
+import {lazy, Suspense, useContext, useMemo} from 'react';
 import {initReactI18next} from 'react-i18next';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 import ProtectedRoute from 'component/ProtectedRoute/ProtectedRoute.tsx';
+import DarkModeContext from 'context/darkmode/DarkModeContext';
+import DarkModeState from 'context/darkmode/DarkModeState';
 import TimelineState from 'context/timeline/TimelineState.tsx';
 import Loading from 'screens/Loading/Loading.tsx';
 import Login from 'screens/Login/Login.tsx';
@@ -14,6 +16,7 @@ import 'App.scss';
 import SidebarState from 'context/sidebar/sidebarState';
 import enJSON from 'resources/labels/en.json';
 import frJSON from 'resources/labels/fr.json';
+import hiJSON from 'resources/labels/hi.json';
 import styles from 'styles/design-systems.module.scss';
 import {languages} from 'utilities/enums';
 
@@ -67,169 +70,192 @@ i18n.use(initReactI18next).init({
   resources: {
     en: {translation: {...enJSON}},
     fr: {translation: {...frJSON}},
+    hi: {translation: {...hiJSON}},
   },
   lng: initialLanguage,
   fallbackLng: languages.ENGLISH,
 });
 
-function App() {
-  const theme = createTheme({
-    typography: {
-      fontFamily: '"Poppins", sans-serif',
-    },
-    palette: {
-      background: {
-        default: styles.bgColorBeigeLight,
-      },
-    },
-  });
+function AppContent() {
+  const {darkMode} = useContext(DarkModeContext);
+
+  const theme = useMemo(
+    () =>
+      createTheme({
+        typography: {
+          fontFamily: '"Poppins", sans-serif',
+        },
+        palette: {
+          mode: darkMode ? 'dark' : 'light',
+          background: {
+            default: darkMode ? styles.darkBgPrimary : styles.bgColorBeigeLight,
+          },
+        },
+        components: {
+          MuiCssBaseline: {
+            styleOverrides: {
+              body: {
+                backgroundColor: darkMode
+                  ? styles.darkBgPrimary
+                  : styles.bgColorBeigeLight,
+              },
+            },
+          },
+        },
+      }),
+    [darkMode],
+  );
 
   return (
-    <>
-      {/*Make sure all components using material ui goes inside this*/}
+    <ThemeProvider theme={theme}>
+      <SidebarState>
+        <TimelineState>
+          <BrowserRouter>
+            {/*this baseline provides grey background used in all screens */}
+            <CssBaseline />
+            <Routes>
+              <Route
+                path="/home"
+                element={
+                  <Suspense fallback={<Loading />}>
+                    <ProtectedRoute>
+                      <Home />
+                    </ProtectedRoute>
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/history"
+                element={
+                  <Suspense fallback={<Loading />}>
+                    <ProtectedRoute>
+                      <History />
+                    </ProtectedRoute>
+                  </Suspense>
+                }
+              />
+              <Route path="/" element={<Login />} />
+              <Route
+                path="/forgotpassword"
+                element={
+                  <Suspense fallback={<Loading />}>
+                    <ForgotPassword />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/stock-check-out"
+                element={
+                  <Suspense fallback={<Loading />}>
+                    <ProtectedRoute>
+                      <StockCheckoutScreen />
+                    </ProtectedRoute>
+                  </Suspense>
+                }>
+                <Route
+                  path="driver"
+                  element={
+                    <Suspense fallback={<Loading />}>
+                      <DriverNameGrid />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="my-order"
+                  element={
+                    <Suspense fallback={<Loading />}>
+                      <MyOrders />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="order"
+                  element={
+                    <Suspense fallback={<Loading />}>
+                      <OrderTable />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="delivery-table"
+                  element={
+                    <Suspense fallback={<Loading />}>
+                      <OrderTable />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="signature"
+                  element={
+                    <Suspense fallback={<Loading />}>
+                      <DriverSignatureForm />
+                    </Suspense>
+                  }
+                />
+              </Route>
+              <Route
+                path="/stock-check-in"
+                element={
+                  <Suspense fallback={<Loading />}>
+                    <ProtectedRoute>
+                      <StockCheckInScreen />
+                    </ProtectedRoute>
+                  </Suspense>
+                }>
+                <Route
+                  path="driver"
+                  element={
+                    <Suspense fallback={<Loading />}>
+                      <PendingCheckInSelection />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="history"
+                  element={
+                    <Suspense fallback={<Loading />}>
+                      <HistoryTable />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="stock"
+                  element={
+                    <Suspense fallback={<Loading />}>
+                      <StockTable />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="attachment"
+                  element={
+                    <Suspense fallback={<Loading />}>
+                      <AttachmentTable />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="signature"
+                  element={
+                    <Suspense fallback={<Loading />}>
+                      <AdminSignature />
+                    </Suspense>
+                  }
+                />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </TimelineState>
+      </SidebarState>
+    </ThemeProvider>
+  );
+}
 
-      <ThemeProvider theme={theme}>
-        <SidebarState>
-          <TimelineState>
-            <BrowserRouter>
-              {/*this baseline provides grey background used in all screens */}
-              <CssBaseline />
-              <Routes>
-                <Route
-                  path="/home"
-                  element={
-                    <Suspense fallback={<Loading />}>
-                      <ProtectedRoute>
-                        <Home />
-                      </ProtectedRoute>
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path="/history"
-                  element={
-                    <Suspense fallback={<Loading />}>
-                      <ProtectedRoute>
-                        <History />
-                      </ProtectedRoute>
-                    </Suspense>
-                  }
-                />
-                <Route path="/" element={<Login />} />
-                <Route
-                  path="/forgotpassword"
-                  element={
-                    <Suspense fallback={<Loading />}>
-                      <ForgotPassword />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path="/stock-check-out"
-                  element={
-                    <Suspense fallback={<Loading />}>
-                      <ProtectedRoute>
-                        <StockCheckoutScreen />
-                      </ProtectedRoute>
-                    </Suspense>
-                  }>
-                  <Route
-                    path="driver"
-                    element={
-                      <Suspense fallback={<Loading />}>
-                        <DriverNameGrid />
-                      </Suspense>
-                    }
-                  />
-                  <Route
-                    path="my-order"
-                    element={
-                      <Suspense fallback={<Loading />}>
-                        <MyOrders />
-                      </Suspense>
-                    }
-                  />
-                  <Route
-                    path="order"
-                    element={
-                      <Suspense fallback={<Loading />}>
-                        <OrderTable />
-                      </Suspense>
-                    }
-                  />
-                  <Route
-                    path="delivery-table"
-                    element={
-                      <Suspense fallback={<Loading />}>
-                        <OrderTable />
-                      </Suspense>
-                    }
-                  />
-                  <Route
-                    path="signature"
-                    element={
-                      <Suspense fallback={<Loading />}>
-                        <DriverSignatureForm />
-                      </Suspense>
-                    }
-                  />
-                </Route>
-                <Route
-                  path="/stock-check-in"
-                  element={
-                    <Suspense fallback={<Loading />}>
-                      <ProtectedRoute>
-                        <StockCheckInScreen />
-                      </ProtectedRoute>
-                    </Suspense>
-                  }>
-                  <Route
-                    path="driver"
-                    element={
-                      <Suspense fallback={<Loading />}>
-                        <PendingCheckInSelection />
-                      </Suspense>
-                    }
-                  />
-                  <Route
-                    path="history"
-                    element={
-                      <Suspense fallback={<Loading />}>
-                        <HistoryTable />
-                      </Suspense>
-                    }
-                  />
-                  <Route
-                    path="stock"
-                    element={
-                      <Suspense fallback={<Loading />}>
-                        <StockTable />
-                      </Suspense>
-                    }
-                  />
-                  <Route
-                    path="attachment"
-                    element={
-                      <Suspense fallback={<Loading />}>
-                        <AttachmentTable />
-                      </Suspense>
-                    }
-                  />
-                  <Route
-                    path="signature"
-                    element={
-                      <Suspense fallback={<Loading />}>
-                        <AdminSignature />
-                      </Suspense>
-                    }
-                  />
-                </Route>
-              </Routes>
-            </BrowserRouter>
-          </TimelineState>
-        </SidebarState>
-      </ThemeProvider>
-    </>
+function App() {
+  return (
+    <DarkModeState>
+      <AppContent />
+    </DarkModeState>
   );
 }
 

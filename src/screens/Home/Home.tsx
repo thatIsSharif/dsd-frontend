@@ -26,12 +26,12 @@ function Home() {
   const {t} = useTranslation();
 
   return (
-    <div className="avl-stock-screen hide-scrollbar">
+    <div className="avl-stock-screen hide-scrollbar page-enter">
       <Header showLanguageSelector={true}>
         <img className="header-icon" src={NagarroGray}></img>
       </Header>
       <Stack className="nav-container">
-        <Box marginBottom={'16px'} position={'relative'}>
+        <Box marginBottom={'16px'} position={'relative'} className="animate-fade-in-up">
           <CardStack />
         </Box>
         <Box
@@ -51,9 +51,13 @@ function Home() {
           }}>
           {SidebarData.map(
             (item, index) =>
-              index !== 0 && <NavigationCard item={item} key={index} />,
+              index !== 0 && (
+                <div key={index} className={`animate-fade-in-up animate-delay-${index + 1}`}>
+                  <NavigationCard item={item} />
+                </div>
+              ),
           )}
-          <Stack>
+          <Stack className="animate-fade-in-up animate-delay-4">
             <Card
               variant={'outlined'}
               sx={{
@@ -70,7 +74,8 @@ function Home() {
                 borderRadius: 2,
                 backgroundColor: styles.bgVibrantOceanBlue,
                 position: 'relative',
-              }}>
+              }}
+              className="hover-glow">
               <CardContent
                 sx={{
                   color: styles.whitePure,
@@ -150,7 +155,7 @@ function Home() {
               xl: '2.4%',
             },
           }}
-          className="download-container">
+          className="download-container animate-fade-in-up animate-delay-6">
           <Stack
             direction={'row'}
             justifyContent={'space-between'}
