@@ -15,7 +15,6 @@ import './index.css';
 import SidebarState from 'context/sidebar/sidebarState';
 import enJSON from 'resources/labels/en.json';
 import frJSON from 'resources/labels/fr.json';
-import styles from 'styles/design-systems.module.scss';
 import {languages} from 'utilities/enums';
 import {ToastProvider} from './component/Toast/ToastContext';
 
@@ -68,6 +67,7 @@ const initialLanguage =
 i18n.use(initReactI18next).init({
   resources: {
     en: {translation: {...enJSON}},
+    hi: {translation: {...enJSON}},
     fr: {translation: {...frJSON}},
   },
   lng: initialLanguage,
@@ -140,6 +140,8 @@ function App() {
               <BrowserRouter>
                 <CssBaseline />
                 <Routes>
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/" element={<Login />} />
                   <Route
                     path="/home"
                     element={
@@ -160,7 +162,6 @@ function App() {
                       </Suspense>
                     }
                   />
-                  <Route path="/" element={<Login />} />
                   <Route
                     path="/forgotpassword"
                     element={

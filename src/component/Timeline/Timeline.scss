@@ -8,7 +8,8 @@
   @include flex-column;
   @include flex-center;
   position: relative;
-  top: -20px;
+  top: 0;
+  overflow: visible;
 
   .container-timeline {
     display: flex;
@@ -20,12 +21,15 @@
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border-radius: 16px;
+    overflow: visible;
   }
 
   .step-item {
     @include flex-column;
     @include flex-center;
-    width: 10%;
+    width: auto;
+    flex: 1;
+    min-width: 60px;
     position: relative;
     justify-content: flex-start;
   }
@@ -88,6 +92,12 @@
     @include flex-row;
     @include flex-center;
     word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-clamp: 2;
     font-family: 'Space Grotesk', sans-serif;
     font-size: 12px;
     font-weight: 500;

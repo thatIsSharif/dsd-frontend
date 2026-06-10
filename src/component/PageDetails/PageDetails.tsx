@@ -4,7 +4,7 @@ import {PageDetailsProps} from './propTypes/types.ts';
 
 export default function PageDetails({heading, subHeading}: PageDetailsProps) {
   return (
-    <>
+    <div style={{display: 'flex', flexDirection: 'column', gap: '2px'}}>
       <div>
         <Typography
           variant="h2"
@@ -27,6 +27,6 @@ export default function PageDetails({heading, subHeading}: PageDetailsProps) {
           {subHeading}
         </Typography>
       </div>
-    </>
+    </div>
   );
 }

@@ -14,6 +14,8 @@ const drivers = [
   { id: 'DRV-006', name: 'Casey Johnson', type: 'Van Seller', status: 'On Route' },
   { id: 'DRV-007', name: 'Riley Smith', type: 'Delivery', status: 'Offline' },
   { id: 'DRV-008', name: 'Avery Brown', type: 'Hybrid', status: 'Online' },
+  { id: 'VANSELLER01', name: 'Rajesh Kumar', type: 'Van Seller', status: 'Online' },
+  { id: 'VANSELLER02', name: 'Amit Singh', type: 'Van Seller', status: 'On Route' },
 ];
 
 const stockSummary = {
@@ -82,9 +84,21 @@ export async function getAnalytics() {
   };
 }
 
+const assignedStock = [
+  { product: 'PRD001', description: 'Water Bottle 1L', initialStock: 50, uom: 'PCS' },
+  { product: 'PRD002', description: 'Juice Pack 250ml', initialStock: 30, uom: 'PCS' },
+  { product: 'PRD003', description: 'Snack Box', initialStock: 20, uom: 'BOX' },
+];
+
+export async function getAssignedStock() {
+  await delay();
+  return assignedStock.map(item => ({...item}));
+}
+
 export default {
   getDrivers,
   getStockSummary,
   getRecentActivity,
   getAnalytics,
+  getAssignedStock,
 };

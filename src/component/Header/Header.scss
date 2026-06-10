@@ -4,15 +4,15 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(13, 13, 13, 0.8);
+  height: 64px;
+  background: var(--header-bg, rgba(13, 13, 13, 0.8));
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 
   .header-container {
     display: flex;
-    padding: 16px;
-    margin-bottom: 20px;
+    padding: 0 16px;
     height: 100%;
     width: 100%;
     justify-content: space-between;
@@ -35,4 +35,34 @@
 /* Nagarro logo tinted with purple hue */
 :where(.header-icon) {
   filter: hue-rotate(240deg) brightness(1.2) saturate(1.5);
+}
+
+/* Theme toggle button */
+.theme-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(124, 58, 237, 0.2);
+    color: #7C3AED;
+    border-color: #7C3AED;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  .theme-toggle-icon {
+    width: 20px;
+    height: 20px;
+  }
 }

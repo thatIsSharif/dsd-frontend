@@ -1,5 +1,6 @@
 export enum languages {
   ENGLISH = 'en',
+  HINDI = 'hi',
   FRENCH = 'fr',
 }
 
