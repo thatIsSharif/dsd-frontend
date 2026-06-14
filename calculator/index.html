@@ -30,7 +30,7 @@
         </div>
     </div>
     <script>
-        const display = document.getElementById('display');
+        const display = document.querySelector('.display');
 
         function appendToDisplay(value) {
             if (display.textContent === '0' && value !== '.') {
@@ -46,7 +46,7 @@
 
         function calculate() {
             try {
-                display.textContent = eval(display.textContent) || '0';
+                display.textContent = Function('return ' + display.textContent)() || '0';
             } catch {
                 display.textContent = 'Error';
             }
