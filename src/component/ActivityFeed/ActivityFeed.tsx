@@ -1,6 +1,7 @@
 import {useTranslation} from 'react-i18next';
 import './ActivityFeed.scss';
 
+/** Represents a single entry in the recent-activity feed. */
 interface ActivityEntry {
   icon: string;
   description: string;
