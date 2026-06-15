@@ -17,6 +17,12 @@ import {useTranslation} from 'react-i18next';
 import styles from 'styles/design-systems.module.scss';
 import {languages} from 'utilities/enums.ts';
 
+const LANGUAGE_OPTIONS = [
+  {code: languages.ENGLISH, label: 'English', testId: 'en-btn', icon: EnglishIcon},
+  {code: languages.FRENCH, label: 'French', testId: 'fr-btn', icon: FrenchIcon},
+  {code: languages.HINDI, label: 'हिन्दी', testId: 'hi-btn', icon: EnglishIcon},
+];
+
 function LanguageSelect() {
   //   Styles for list
   const sxProp = {
@@ -42,7 +48,7 @@ function LanguageSelect() {
   const {
     i18n: {changeLanguage, language},
   } = useTranslation();
-  const [open, setOpen] = useState(false); //state to toggle dropdown menu
+  const [open, setOpen] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState<string>(
     localStorage.getItem('currentLanguage') || language,
   );
@@ -50,22 +56,15 @@ function LanguageSelect() {
   function updateCurrentLanguage(selectedLanguage: string): void {
     localStorage.setItem('currentLanguage', selectedLanguage);
     setCurrentLanguage(selectedLanguage);
+    changeLanguage(selectedLanguage);
   }
 
-  // Function to handle language change
-  function handleClick(): void {
-    const newLanguage =
-      currentLanguage === languages.ENGLISH
-        ? languages.FRENCH
-        : languages.ENGLISH;
-    updateCurrentLanguage(newLanguage);
-    changeLanguage(newLanguage);
-  }
-
-  // Function to hide and show dropdown
   function handleToggle() {
     setOpen(!open);
   }
+
+  const currentOption = LANGUAGE_OPTIONS.find(l => l.code === currentLanguage) || LANGUAGE_OPTIONS[0];
+  const otherOptions = LANGUAGE_OPTIONS.filter(l => l.code !== currentLanguage);
 
   return (
     <>
@@ -77,7 +76,7 @@ function LanguageSelect() {
           data-testid={'language-select-btn'}
           className={'language-select-btn'}
           onClick={handleToggle}>
-          {currentLanguage === 'en' ? <EnglishButton /> : <FrenchButton />}
+          <LanguageButton option={currentOption} />
 
           <Button
             data-testid={'expand-btn'}
@@ -103,16 +102,18 @@ function LanguageSelect() {
             data-testid={'language-select-menu'}
             component="div"
             disablePadding>
-            <ListItemButton
-              className={'language-select-btn'}
-              sx={{mt: '6px'}}
-              onClick={handleClick}>
-              {currentLanguage !== languages.ENGLISH ? (
-                <EnglishButton />
-              ) : (
-                <FrenchButton />
-              )}
-            </ListItemButton>
+            {otherOptions.map(option => (
+              <ListItemButton
+                key={option.code}
+                className={'language-select-btn'}
+                sx={{mt: '6px'}}
+                onClick={() => {
+                  updateCurrentLanguage(option.code);
+                  setOpen(false);
+                }}>
+                <LanguageButton option={option} />
+              </ListItemButton>
+            ))}
           </List>
         </Collapse>
       </List>
@@ -122,37 +123,20 @@ function LanguageSelect() {
 
 export default LanguageSelect;
 
-// Buttons for French and English language
-function FrenchButton() {
+function LanguageButton({option}: {option: typeof LANGUAGE_OPTIONS[0]}) {
   return (
     <>
-      <ListItemIcon data-testid={'fr-btn'}>
+      <ListItemIcon data-testid={option.testId}>
         <Avatar
-          alt="french"
-          src={FrenchIcon}
+          alt={option.label}
+          src={option.icon}
           sx={{
             width: 30,
             height: 30,
           }}
         />
       </ListItemIcon>
-      <ListItemText className={'language-select-text'} primary="French" />
-    </>
-  );
-}
-function EnglishButton() {
-  return (
-    <>
-      <ListItemIcon data-testid={'en-btn'}>
-        <Avatar
-          src={EnglishIcon}
-          sx={{
-            width: 30,
-            height: 30,
-          }}
-        />
-      </ListItemIcon>
-      <ListItemText primary="English" />
+      <ListItemText className={'language-select-text'} primary={option.label} />
     </>
   );
 }

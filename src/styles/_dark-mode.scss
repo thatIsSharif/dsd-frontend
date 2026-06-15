@@ -1,0 +1,172 @@
+// Dark Mode - CSS variables
+// Applied when .dark class is on the root element
+
+.dark {
+  // Backgrounds
+  --bg-primary: #1a1a2e;
+  --bg-secondary: #16213e;
+  --bg-card: #1e2a4a;
+  --bg-surface: #0f3460;
+  --bg-beige-light: #1a1a2e;
+  --bg-midnight-blue-gray: #0d1b2a;
+  --bg-vibrant-ocean-blue: #1b3a5c;
+  --bg-frost-blue: #1e2a4a;
+  --bg-soft-baby-blue: #1e2a4a;
+  --bg-silver-mist: rgba(255, 255, 255, 0.1);
+  --bg-soft-aqua: rgba(255, 255, 255, 0.05);
+  --bg-white-smoke: #2a2a3e;
+  --bg-powder-blue: #1e2a4a;
+  --bg-frosted-ocean-blue: rgba(255, 255, 255, 0.1);
+
+  // Text colors
+  --white-pure: #e0e0e0;
+  --charcoal-dark: #e0e0e0;
+  --gray-charcoal: #b0b0b0;
+  --charcoal: #cccccc;
+  --off-white-gray: #555555;
+  --blue-steel: #8ab4f8;
+
+  // Border colors
+  --border-grey-light: #2a2a3e;
+  --border-gray-muted: #2a2a3e;
+  --border-soft-gray: #2a2a3e;
+
+  // Gradient overrides
+  --gradient-blue-mist: linear-gradient(
+    91.03deg,
+    rgba(30, 42, 74, 1) 15.38%,
+    rgba(26, 26, 46, 1) 101.13%
+  );
+
+  // Sidebar
+  --sidebar-bg: #0d1b2a;
+  --sidebar-text: #b0b0b0;
+  --sidebar-active: #8ab4f8;
+
+  // Card shadows
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --card-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+// Apply CSS variables to elements in dark mode
+.dark {
+  background-color: var(--bg-primary);
+  color: var(--charcoal-dark);
+
+  .MuiPaper-root,
+  .MuiCard-root {
+    background-color: var(--bg-card) !important;
+    color: var(--charcoal-dark) !important;
+    border-color: var(--border-grey-light) !important;
+  }
+
+  .MuiTypography-root {
+    color: var(--charcoal-dark);
+  }
+
+  .MuiTableCell-root {
+    color: var(--charcoal-dark) !important;
+    border-color: var(--border-grey-light) !important;
+  }
+
+  .MuiTableHead-root .MuiTableCell-root {
+    background-color: var(--bg-secondary) !important;
+  }
+
+  .MuiTableBody-root .MuiTableCell-root {
+    background-color: var(--bg-card) !important;
+  }
+
+  .MuiInputBase-root {
+    color: var(--charcoal-dark) !important;
+  }
+
+  .MuiOutlinedInput-notchedOutline {
+    border-color: var(--border-grey-light) !important;
+  }
+
+  .MuiSvgIcon-root {
+    color: var(--charcoal-dark);
+  }
+
+  .MuiChip-root {
+    background-color: var(--bg-surface) !important;
+    color: var(--charcoal-dark) !important;
+  }
+
+  .MuiButton-root.Mui-disabled {
+    color: var(--gray-charcoal) !important;
+  }
+
+  .MuiToggleButton-root {
+    color: var(--charcoal-dark) !important;
+    border-color: var(--border-grey-light) !important;
+  }
+
+  .MuiToggleButton-root.Mui-selected {
+    background-color: var(--bg-surface) !important;
+  }
+
+  // Header
+  .header {
+    background-color: var(--bg-card) !important;
+  }
+
+  // Sidebar
+  .sidebar {
+    background: var(--sidebar-bg) !important;
+  }
+
+  .sidebar-item {
+    color: var(--sidebar-text) !important;
+  }
+
+  // Home dashboard
+  .avl-stock-screen {
+    background-color: var(--bg-primary) !important;
+  }
+
+  // Download container
+  .download-container .MuiStack-root {
+    background: var(--gradient-blue-mist) !important;
+  }
+
+  // Skeleton shimmer in dark mode
+  .skeleton-shimmer {
+    background: linear-gradient(
+      90deg,
+      #1e2a4a 25%,
+      #2a3a5e 50%,
+      #1e2a4a 75%
+    );
+    background-size: 200% 100%;
+  }
+
+  // Cards specifically
+  .navigation-card,
+  .MuiCard-variant-outlined {
+    box-shadow: var(--card-shadow);
+    border-color: var(--border-grey-light) !important;
+  }
+
+  .navigation-card:hover {
+    box-shadow: var(--card-shadow-hover);
+  }
+
+  // Scrollbar
+  &::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+  }
+}
+
+// Light mode variables
+:root {
+  --bg-primary: #f1f2f6;
+  --bg-card: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --sidebar-bg: #ffffff;
+  --sidebar-text: #555555;
+  --sidebar-active: #2b6cb0;
+}

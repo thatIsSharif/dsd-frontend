@@ -5,6 +5,7 @@ export interface Driver {
   driverName: string;
   driverId: string;
   driverType: driverTypes;
+  status?: 'online' | 'offline' | 'onRoute';
 }
 export interface Drivers {
     'VAN-SELLER': Driver[];

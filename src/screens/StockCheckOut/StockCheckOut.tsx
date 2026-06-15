@@ -14,9 +14,11 @@ import Timeline from 'component/Timeline/Timeline.tsx';
 import Box from '@mui/material/Box';
 import {api} from 'api/api.ts';
 import BlueBorderButton from 'component/BlueBorderButton/BlueBorderButton.tsx';
+import Breadcrumb from 'component/Breadcrumb/Breadcrumb';
 import Header from 'component/Header/Header.tsx';
 import InfoAlertDialog from 'component/InfoAlertDialog/InfoAlertDialog.tsx';
 import PageDetails from 'component/PageDetails/PageDetails.tsx';
+import {useToast} from 'context/ToastContext';
 import timelineContext from 'context/timeline/timelineContext.ts';
 import {createBrowserHistory} from 'history';
 import {Driver} from 'models/Driver.ts';
@@ -46,6 +48,7 @@ function StockCheckOut() {
   const location = useLocation();
   const firstRender = useRef(true);
   const history = createBrowserHistory();
+  const {showToast} = useToast();
 
   const {
     driverArray,
@@ -155,32 +158,41 @@ function StockCheckOut() {
       const response: AxiosResponse<DriverApiResponse> =
         await api.get('/warehouse/drivers');
 
+      const statuses: Array<'online' | 'offline' | 'onRoute'> = [
+        'online',
+        'offline',
+        'onRoute',
+        'online',
+      ];
       // Check if 'VAN-SELLER' exists
       const vanSellerDrivers: Driver[] = response.data.data[
         driverRoles.VAN_SELLER
       ]
-        ? response.data.data[driverRoles.VAN_SELLER].map(driver => ({
+        ? response.data.data[driverRoles.VAN_SELLER].map((driver, idx) => ({
             driverName: driver.username,
             driverId: driver.user_id,
             driverType: driverRoles.VAN_SELLER,
+            status: statuses[idx % statuses.length],
           }))
         : []; // If 'VAN-SELLER' is missing, set to an empty array
 
       // Check if 'DELIVERY' exists
       const deliveryDrivers: Driver[] = response.data.data[driverRoles.DELIVERY]
-        ? response.data.data[driverRoles.DELIVERY].map(driver => ({
+        ? response.data.data[driverRoles.DELIVERY].map((driver, idx) => ({
             driverName: driver.username,
             driverId: driver.user_id,
             driverType: driverRoles.DELIVERY,
+            status: statuses[idx % statuses.length],
           }))
         : []; // If 'DELIVERY' is missing, set to an empty array
 
       // Check if 'HYBRID' exists
       const hybridDrivers: Driver[] = response.data.data[driverRoles.HYBRID]
-        ? response.data.data[driverRoles.HYBRID].map(driver => ({
+        ? response.data.data[driverRoles.HYBRID].map((driver, idx) => ({
             driverName: driver.username,
             driverId: driver.user_id,
             driverType: driverRoles.HYBRID,
+            status: statuses[idx % statuses.length],
           }))
         : []; // If 'HYBRID' is missing, set to an empty array
 
@@ -208,9 +220,11 @@ function StockCheckOut() {
       );
       console.log(response);
       sendNotification('Loading order created successfully');
+      showToast(t('toast.orderCreated'), 'success');
       setAlertOpen(true);
     } catch (error) {
       console.error(error);
+      showToast(t('toast.error'), 'error');
     }
   }
 
@@ -285,6 +299,12 @@ function StockCheckOut() {
         />
       </InfoAlertDialog>
       <Stack className={'select-driver-screen'}>
+        <Breadcrumb
+          items={[
+            {label: 'breadcrumb.home', path: '/home'},
+            {label: 'stockcheckout.heading'},
+          ]}
+        />
         <Stack
           spacing={2}
           sx={{

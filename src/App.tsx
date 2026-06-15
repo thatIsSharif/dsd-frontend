@@ -1,19 +1,24 @@
 import {createTheme, CssBaseline, ThemeProvider} from '@mui/material';
 
 import i18n from 'i18next';
-import {lazy, Suspense} from 'react';
+import {lazy, Suspense, useEffect} from 'react';
 import {initReactI18next} from 'react-i18next';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 import ProtectedRoute from 'component/ProtectedRoute/ProtectedRoute.tsx';
+import ToastContainer from 'component/Toast/ToastContainer';
+import {ToastProvider} from 'context/ToastContext';
 import TimelineState from 'context/timeline/TimelineState.tsx';
 import Loading from 'screens/Loading/Loading.tsx';
 import Login from 'screens/Login/Login.tsx';
 
 import 'App.scss';
+import 'styles/_animations.scss';
+import 'styles/_dark-mode.scss';
 import SidebarState from 'context/sidebar/sidebarState';
 import enJSON from 'resources/labels/en.json';
 import frJSON from 'resources/labels/fr.json';
+import hiJSON from 'resources/labels/hi.json';
 import styles from 'styles/design-systems.module.scss';
 import {languages} from 'utilities/enums';
 
@@ -67,6 +72,7 @@ i18n.use(initReactI18next).init({
   resources: {
     en: {translation: {...enJSON}},
     fr: {translation: {...frJSON}},
+    hi: {translation: {...hiJSON}},
   },
   lng: initialLanguage,
   fallbackLng: languages.ENGLISH,
@@ -84,150 +90,158 @@ function App() {
     },
   });
 
+  // Initialize dark mode from localStorage on mount
+  useEffect(() => {
+    const isDark = localStorage.getItem('darkMode') === 'true';
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+    }
+  }, []);
+
   return (
     <>
-      {/*Make sure all components using material ui goes inside this*/}
-
       <ThemeProvider theme={theme}>
-        <SidebarState>
-          <TimelineState>
-            <BrowserRouter>
-              {/*this baseline provides grey background used in all screens */}
-              <CssBaseline />
-              <Routes>
-                <Route
-                  path="/home"
-                  element={
-                    <Suspense fallback={<Loading />}>
-                      <ProtectedRoute>
-                        <Home />
-                      </ProtectedRoute>
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path="/history"
-                  element={
-                    <Suspense fallback={<Loading />}>
-                      <ProtectedRoute>
-                        <History />
-                      </ProtectedRoute>
-                    </Suspense>
-                  }
-                />
-                <Route path="/" element={<Login />} />
-                <Route
-                  path="/forgotpassword"
-                  element={
-                    <Suspense fallback={<Loading />}>
-                      <ForgotPassword />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path="/stock-check-out"
-                  element={
-                    <Suspense fallback={<Loading />}>
-                      <ProtectedRoute>
-                        <StockCheckoutScreen />
-                      </ProtectedRoute>
-                    </Suspense>
-                  }>
+        <ToastProvider>
+          <SidebarState>
+            <TimelineState>
+              <BrowserRouter>
+                <CssBaseline />
+                <Routes>
                   <Route
-                    path="driver"
+                    path="/home"
                     element={
                       <Suspense fallback={<Loading />}>
-                        <DriverNameGrid />
+                        <ProtectedRoute>
+                          <Home />
+                        </ProtectedRoute>
                       </Suspense>
                     }
                   />
                   <Route
-                    path="my-order"
+                    path="/history"
                     element={
                       <Suspense fallback={<Loading />}>
-                        <MyOrders />
+                        <ProtectedRoute>
+                          <History />
+                        </ProtectedRoute>
+                      </Suspense>
+                    }
+                  />
+                  <Route path="/" element={<Login />} />
+                  <Route
+                    path="/forgotpassword"
+                    element={
+                      <Suspense fallback={<Loading />}>
+                        <ForgotPassword />
                       </Suspense>
                     }
                   />
                   <Route
-                    path="order"
+                    path="/stock-check-out"
                     element={
                       <Suspense fallback={<Loading />}>
-                        <OrderTable />
+                        <ProtectedRoute>
+                          <StockCheckoutScreen />
+                        </ProtectedRoute>
                       </Suspense>
-                    }
-                  />
+                    }>
+                    <Route
+                      path="driver"
+                      element={
+                        <Suspense fallback={<Loading />}>
+                          <DriverNameGrid />
+                        </Suspense>
+                      }
+                    />
+                    <Route
+                      path="my-order"
+                      element={
+                        <Suspense fallback={<Loading />}>
+                          <MyOrders />
+                        </Suspense>
+                      }
+                    />
+                    <Route
+                      path="order"
+                      element={
+                        <Suspense fallback={<Loading />}>
+                          <OrderTable />
+                        </Suspense>
+                      }
+                    />
+                    <Route
+                      path="delivery-table"
+                      element={
+                        <Suspense fallback={<Loading />}>
+                          <OrderTable />
+                        </Suspense>
+                      }
+                    />
+                    <Route
+                      path="signature"
+                      element={
+                        <Suspense fallback={<Loading />}>
+                          <DriverSignatureForm />
+                        </Suspense>
+                      }
+                    />
+                  </Route>
                   <Route
-                    path="delivery-table"
+                    path="/stock-check-in"
                     element={
                       <Suspense fallback={<Loading />}>
-                        <OrderTable />
+                        <ProtectedRoute>
+                          <StockCheckInScreen />
+                        </ProtectedRoute>
                       </Suspense>
-                    }
-                  />
-                  <Route
-                    path="signature"
-                    element={
-                      <Suspense fallback={<Loading />}>
-                        <DriverSignatureForm />
-                      </Suspense>
-                    }
-                  />
-                </Route>
-                <Route
-                  path="/stock-check-in"
-                  element={
-                    <Suspense fallback={<Loading />}>
-                      <ProtectedRoute>
-                        <StockCheckInScreen />
-                      </ProtectedRoute>
-                    </Suspense>
-                  }>
-                  <Route
-                    path="driver"
-                    element={
-                      <Suspense fallback={<Loading />}>
-                        <PendingCheckInSelection />
-                      </Suspense>
-                    }
-                  />
-                  <Route
-                    path="history"
-                    element={
-                      <Suspense fallback={<Loading />}>
-                        <HistoryTable />
-                      </Suspense>
-                    }
-                  />
-                  <Route
-                    path="stock"
-                    element={
-                      <Suspense fallback={<Loading />}>
-                        <StockTable />
-                      </Suspense>
-                    }
-                  />
-                  <Route
-                    path="attachment"
-                    element={
-                      <Suspense fallback={<Loading />}>
-                        <AttachmentTable />
-                      </Suspense>
-                    }
-                  />
-                  <Route
-                    path="signature"
-                    element={
-                      <Suspense fallback={<Loading />}>
-                        <AdminSignature />
-                      </Suspense>
-                    }
-                  />
-                </Route>
-              </Routes>
-            </BrowserRouter>
-          </TimelineState>
-        </SidebarState>
+                    }>
+                    <Route
+                      path="driver"
+                      element={
+                        <Suspense fallback={<Loading />}>
+                          <PendingCheckInSelection />
+                        </Suspense>
+                      }
+                    />
+                    <Route
+                      path="history"
+                      element={
+                        <Suspense fallback={<Loading />}>
+                          <HistoryTable />
+                        </Suspense>
+                      }
+                    />
+                    <Route
+                      path="stock"
+                      element={
+                        <Suspense fallback={<Loading />}>
+                          <StockTable />
+                        </Suspense>
+                      }
+                    />
+                    <Route
+                      path="attachment"
+                      element={
+                        <Suspense fallback={<Loading />}>
+                          <AttachmentTable />
+                        </Suspense>
+                      }
+                    />
+                    <Route
+                      path="signature"
+                      element={
+                        <Suspense fallback={<Loading />}>
+                          <AdminSignature />
+                        </Suspense>
+                      }
+                    />
+                  </Route>
+                </Routes>
+                <ToastContainer />
+              </BrowserRouter>
+            </TimelineState>
+          </SidebarState>
+        </ToastProvider>
       </ThemeProvider>
     </>
   );

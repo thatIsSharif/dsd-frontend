@@ -19,21 +19,43 @@ import Typography from '@mui/material/Typography';
 import NagarroGray from 'assets/PNG/NagarroGray.png';
 import DetailsCard from 'component/DetailsCard/DetailsCard';
 import NavigationCard from 'component/NavigationCard/NavigationCard';
+import SkeletonLoader from 'component/SkeletonLoader/SkeletonLoader';
+import StatsRow from 'component/StatsRow/StatsRow';
+import ActivityFeed from 'component/ActivityFeed/ActivityFeed';
 import {SidebarData} from 'component/SidebarNew/SidebarData';
 import styles from 'styles/design-systems.module.scss';
+import {useState, useEffect} from 'react';
 
 function Home() {
   const {t} = useTranslation();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 800);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="avl-stock-screen hide-scrollbar">
+        <Header showLanguageSelector={true} showDarkModeToggle={true}>
+          <img className="header-icon" src={NagarroGray}></img>
+        </Header>
+        <SkeletonLoader type="dashboard" />
+      </div>
+    );
+  }
 
   return (
     <div className="avl-stock-screen hide-scrollbar">
-      <Header showLanguageSelector={true}>
+      <Header showLanguageSelector={true} showDarkModeToggle={true}>
         <img className="header-icon" src={NagarroGray}></img>
       </Header>
       <Stack className="nav-container">
         <Box marginBottom={'16px'} position={'relative'}>
           <CardStack />
         </Box>
+        <StatsRow />
         <Box
           sx={{
             maxWidth: '100%',
@@ -51,87 +73,93 @@ function Home() {
           }}>
           {SidebarData.map(
             (item, index) =>
-              index !== 0 && <NavigationCard item={item} key={index} />,
+              index !== 0 && (
+                <div key={index} className={`anim-fade-in-up anim-delay-${index + 3}`}>
+                  <NavigationCard item={item} />
+                </div>
+              ),
           )}
-          <Stack>
-            <Card
-              variant={'outlined'}
-              sx={{
-                width: {
-                  md: '94%',
-                  lg: '98%',
-                  xl: '90%',
-                },
-                height: {
-                  md: '256px',
-                  lg: '256px',
-                  xl: '300px',
-                },
-                borderRadius: 2,
-                backgroundColor: styles.bgVibrantOceanBlue,
-                position: 'relative',
-              }}>
-              <CardContent
+          <div className="anim-fade-in-up anim-delay-6">
+            <Stack>
+              <Card
+                variant={'outlined'}
                 sx={{
-                  color: styles.whitePure,
+                  width: {
+                    md: '94%',
+                    lg: '98%',
+                    xl: '90%',
+                  },
+                  height: {
+                    md: '256px',
+                    lg: '256px',
+                    xl: '300px',
+                  },
+                  borderRadius: 2,
+                  backgroundColor: styles.bgVibrantOceanBlue,
+                  position: 'relative',
                 }}>
-                <Stack
-                  direction="column"
-                  justifyContent="space-between"
-                  alignItems="start"
-                  height="100%"
-                  paddingLeft={'6px'}
-                  marginBottom={1}
-                  marginTop={3}>
-                  <div>
-                    <div className="list-icon-container">
-                      <img
-                        className="list-icon"
-                        data-testid={'icon'}
-                        src={ListIcon}
-                        alt={'icon'}
-                      />
+                <CardContent
+                  sx={{
+                    color: styles.whitePure,
+                  }}>
+                  <Stack
+                    direction="column"
+                    justifyContent="space-between"
+                    alignItems="start"
+                    height="100%"
+                    paddingLeft={'6px'}
+                    marginBottom={1}
+                    marginTop={3}>
+                    <div>
+                      <div className="list-icon-container">
+                        <img
+                          className="list-icon"
+                          data-testid={'icon'}
+                          src={ListIcon}
+                          alt={'icon'}
+                        />
+                      </div>
+                      <Typography
+                        fontSize={styles.fontSizeXl}
+                        fontWeight={styles.fontWeightBolder}>
+                        {t('createLoadingOrder.heading')}
+                      </Typography>
+                      <Typography
+                        color={styles.offWhiteGray}
+                        fontSize={styles.fontSizeSm}
+                        fontWeight={styles.fontWeightLight}>
+                        {t('createLoadingOrder.subHeading')}
+                      </Typography>
                     </div>
-                    <Typography
-                      fontSize={styles.fontSizeXl}
-                      fontWeight={styles.fontWeightBolder}>
-                      {t('createLoadingOrder.heading')}
-                    </Typography>
-                    <Typography
-                      color={styles.offWhiteGray}
-                      fontSize={styles.fontSizeSm}
-                      fontWeight={styles.fontWeightLight}>
-                      {t('createLoadingOrder.subHeading')}
-                    </Typography>
-                  </div>
-                  <div>
-                    <Box
-                      sx={{
-                        textAlign: 'start',
-                        fontSize: styles.fontSizeSm,
-                        fontWeight: styles.fontWeightNormal,
-                      }}>
-                      <Button
-                        className="action-btn"
+                    <div>
+                      <Box
                         sx={{
-                          mt: 1,
-                          color: styles.bgVibrantOceanBlue,
-                          backgroundColor: styles.whitePure,
-                          textTransform: 'none',
-                        }}
-                        variant="contained"
-                        size="small"
-                        component={Link}
-                        to="/stock-check-out/driver"
-                        disableElevation>
-                        {t('availablestock.creatNow')}
-                      </Button>
-                    </Box>
-                  </div>
-                </Stack>
-              </CardContent>
-            </Card>
-          </Stack>
+                          textAlign: 'start',
+                          fontSize: styles.fontSizeSm,
+                          fontWeight: styles.fontWeightNormal,
+                        }}>
+                        <Button
+                          className="action-btn"
+                          sx={{
+                            mt: 1,
+                            color: styles.bgVibrantOceanBlue,
+                            backgroundColor: styles.whitePure,
+                            textTransform: 'none',
+                          }}
+                          variant="contained"
+                          size="small"
+                          component={Link}
+                          to="/stock-check-out/driver"
+                          disableElevation>
+                          {t('availablestock.creatNow')}
+                        </Button>
+                      </Box>
+                    </div>
+                  </Stack>
+                </CardContent>
+              </Card>
+            </Stack>
+          </div>
         </Box>
         <Box
           display={'grid'}
@@ -205,6 +233,7 @@ function Home() {
             </div>
           </Stack>
         </Box>
+        <ActivityFeed />
       </Stack>
     </div>
   );
@@ -239,24 +268,28 @@ function CardStack() {
         },
       }}
       paddingLeft={'2px'}>
-      <DetailsCard
-        iconBackground={styles.bgTranslucentWhite}
-        icon={PersonBlue}
-        cardBackground={styles.bgMidnightBlueGray}
-        mainInfo={adminMainInfo}
-        mainInfoColor={styles.whitePure}
-        secondaryInfo={t('home.adminSecondaryHeading')}
-        secondaryInfoColor={styles.whitePure}
-      />
-      <DetailsCard
-        iconBackground={styles.bgFrostBlue}
-        icon={DateNavyBlue}
-        cardBackground={styles.whitePure}
-        mainInfo={dateMainInfo}
-        mainInfoColor={styles.charcoalDark}
-        secondaryInfo={date}
-        secondaryInfoColor={styles.grayCharcoal}
-      />
+      <div className="anim-fade-in-down anim-delay-1" style={{flex: 1}}>
+        <DetailsCard
+          iconBackground={styles.bgTranslucentWhite}
+          icon={PersonBlue}
+          cardBackground={styles.bgMidnightBlueGray}
+          mainInfo={adminMainInfo}
+          mainInfoColor={styles.whitePure}
+          secondaryInfo={t('home.adminSecondaryHeading')}
+          secondaryInfoColor={styles.whitePure}
+        />
+      </div>
+      <div className="anim-fade-in-down anim-delay-2" style={{flex: 1}}>
+        <DetailsCard
+          iconBackground={styles.bgFrostBlue}
+          icon={DateNavyBlue}
+          cardBackground={styles.whitePure}
+          mainInfo={dateMainInfo}
+          mainInfoColor={styles.charcoalDark}
+          secondaryInfo={date}
+          secondaryInfoColor={styles.grayCharcoal}
+        />
+      </div>
     </Stack>
   );
 }

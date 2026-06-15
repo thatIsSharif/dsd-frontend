@@ -1,0 +1,94 @@
+@import 'src/styles/design-systems.module';
+
+.skeleton-shimmer-base {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-dashboard {
+  padding: 30px 3%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.skeleton-row {
+  display: flex;
+  gap: 3%;
+  margin-bottom: 8px;
+}
+
+.skeleton-card {
+  @extend .skeleton-shimmer-base;
+}
+
+.skeleton-welcome {
+  flex: 1;
+  height: 100px;
+}
+
+.skeleton-date {
+  flex: 1;
+  height: 100px;
+}
+
+.skeleton-nav-card {
+  flex: 1;
+  height: 256px;
+}
+
+.skeleton-stats-row {
+  display: flex;
+  gap: 3%;
+}
+
+.skeleton-stat {
+  flex: 1;
+  height: 100px;
+}
+
+// Driver grid skeleton
+.skeleton-driver-grid {
+  padding: 24px;
+}
+
+.skeleton-header-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.skeleton-toggle {
+  width: 300px;
+  height: 40px;
+  border-radius: 20px;
+  @extend .skeleton-shimmer-base;
+}
+
+.skeleton-search {
+  width: 200px;
+  height: 40px;
+  border-radius: 8px;
+  @extend .skeleton-shimmer-base;
+}
+
+.skeleton-driver-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.skeleton-driver {
+  height: 80px;
+}

@@ -1,0 +1,32 @@
+.dark-mode-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .toggle-icon {
+    width: 22px;
+    height: 22px;
+    color: #555;
+    transition: color 0.2s;
+  }
+}
+
+.dark .dark-mode-toggle {
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .toggle-icon {
+    color: #f0c040;
+  }
+}

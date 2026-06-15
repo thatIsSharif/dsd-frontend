@@ -1,6 +1,7 @@
 export enum languages {
   ENGLISH = 'en',
   FRENCH = 'fr',
+  HINDI = 'hi',
 }
 
 export enum driverRoles {

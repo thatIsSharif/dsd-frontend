@@ -18,13 +18,30 @@ function DriverCard({
   selectedDriverId,
   handleDriverSelection,
 }: DriverCardProps) {
+  const status = driver.status;
+  const statusLabel =
+    status === 'online'
+      ? 'driver.status.online'
+      : status === 'offline'
+        ? 'driver.status.offline'
+        : status === 'onRoute'
+          ? 'driver.status.onRoute'
+          : '';
+
   return (
     <Stack data-testid={'driver-btn'}>
       <Card
         variant={'outlined'}
         sx={{
           borderRadius: '8px',
+          position: 'relative',
         }}>
+        {status && (
+          <div className={`driver-status driver-status-${status}`}>
+            <span className={`status-dot status-dot-${status}`} />
+            {statusLabel}
+          </div>
+        )}
         <CardActionArea
           onClick={() => handleDriverSelection(driver.driverId)}
           sx={{cursor: 'pointer'}}>

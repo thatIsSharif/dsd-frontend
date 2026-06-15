@@ -14,9 +14,11 @@ import {api} from 'api/api.ts';
 import confirmAnimation from 'assets/LOTTIE/ConfirmAnimation.json';
 import BlueBorderButton from 'component/BlueBorderButton/BlueBorderButton.tsx';
 import BlueButton from 'component/BlueButton/BlueButton.tsx';
+import Breadcrumb from 'component/Breadcrumb/Breadcrumb';
 import Header from 'component/Header/Header.tsx';
 import InfoAlertDialog from 'component/InfoAlertDialog/InfoAlertDialog.tsx';
 import PageDetails from 'component/PageDetails/PageDetails.tsx';
+import {useToast} from 'context/ToastContext';
 import timelineContext from 'context/timeline/timelineContext.ts';
 import {createBrowserHistory} from 'history';
 import {Attachment} from 'models/Attachment.ts';
@@ -48,6 +50,7 @@ function StockCheckIn() {
   const history = createBrowserHistory();
   const heading = t('stockcheckin.heading');
   const subHeading = t('createLoadingOrder.subtitle');
+  const {showToast} = useToast();
   const firstRender = useRef(true);
   const [dataLoading, setDataLoading] = useState(false);
   const [transactionArr, setTransactionArr] = useState<
@@ -143,31 +146,41 @@ function StockCheckIn() {
       response = await api.get('/warehouse/drivers/pending-checkin');
       console.log(response);
 
+      const statuses: Array<'online' | 'offline' | 'onRoute'> = [
+        'online',
+        'offline',
+        'onRoute',
+        'online',
+      ];
+
       const vanSellerDrivers: Driver[] = response.data.data[
         driverRoles.VAN_SELLER
       ]
-        ? response.data.data[driverRoles.VAN_SELLER].map(driver => ({
+        ? response.data.data[driverRoles.VAN_SELLER].map((driver, idx) => ({
             driverName: driver.username,
             driverId: driver.user_id,
             driverType: driverRoles.VAN_SELLER,
+            status: statuses[idx % statuses.length],
           }))
         : []; // If 'VAN-SELLER' is missing, set to an empty array
 
       // Check if 'DELIVERY' exists
       const deliveryDrivers: Driver[] = response.data.data[driverRoles.DELIVERY]
-        ? response.data.data[driverRoles.DELIVERY].map(driver => ({
+        ? response.data.data[driverRoles.DELIVERY].map((driver, idx) => ({
             driverName: driver.username,
             driverId: driver.user_id,
             driverType: driverRoles.DELIVERY,
+            status: statuses[idx % statuses.length],
           }))
         : []; // If 'DELIVERY' is missing, set to an empty array
 
       // Check if 'HYBRID' exists
       const hybridDrivers: Driver[] = response.data.data[driverRoles.HYBRID]
-        ? response.data.data[driverRoles.HYBRID].map(driver => ({
+        ? response.data.data[driverRoles.HYBRID].map((driver, idx) => ({
             driverName: driver.username,
             driverId: driver.user_id,
             driverType: driverRoles.HYBRID,
+            status: statuses[idx % statuses.length],
           }))
         : []; // If 'HYBRID' is missing, set to an empty array
 
@@ -234,9 +247,11 @@ function StockCheckIn() {
       );
       console.log(response);
       sendNotification('Stock check in successful');
+      showToast(t('toast.stockCheckedIn'), 'success');
       setAlertOpen(true);
     } catch (error) {
       console.error(error);
+      showToast(t('toast.error'), 'error');
     }
   }
 
@@ -297,6 +312,12 @@ function StockCheckIn() {
         />
       </InfoAlertDialog>
       <Stack className={'stock-check-in'}>
+        <Breadcrumb
+          items={[
+            {label: 'breadcrumb.home', path: '/home'},
+            {label: 'stockcheckin.heading'},
+          ]}
+        />
         <Stack
           spacing={2}
           sx={{
