@@ -1,5 +1,4 @@
 import {useTranslation} from 'react-i18next';
-import {useMemo} from 'react';
 import './ActivityFeed.scss';
 
 interface ActivityEntry {
@@ -9,16 +8,16 @@ interface ActivityEntry {
   timeValue: number;
 }
 
+const activities: ActivityEntry[] = [
+  {icon: '✅', description: 'VANSELLER02 checked in', timeKey: 'activity.minutesAgo', timeValue: 5},
+  {icon: '📦', description: 'Loading order #104 created', timeKey: 'activity.hoursAgo', timeValue: 1},
+  {icon: '🚚', description: 'Loading order #103 shipped', timeKey: 'activity.hoursAgo', timeValue: 3},
+  {icon: '📋', description: 'Stock updated for Order #102', timeKey: 'activity.hoursAgo', timeValue: 5},
+  {icon: '👤', description: 'Driver VANSELLER03 assigned', timeKey: 'activity.hoursAgo', timeValue: 8},
+];
+
 function ActivityFeed() {
   const {t} = useTranslation();
-
-  const activities: ActivityEntry[] = useMemo(() => [
-    {icon: '✅', description: 'VANSELLER02 checked in', timeKey: 'activity.minutesAgo', timeValue: 5},
-    {icon: '📦', description: 'Loading order #104 created', timeKey: 'activity.hoursAgo', timeValue: 1},
-    {icon: '🚚', description: 'Loading order #103 shipped', timeKey: 'activity.hoursAgo', timeValue: 3},
-    {icon: '📋', description: 'Stock updated for Order #102', timeKey: 'activity.hoursAgo', timeValue: 5},
-    {icon: '👤', description: 'Driver VANSELLER03 assigned', timeKey: 'activity.hoursAgo', timeValue: 8},
-  ], []);
 
   return (
     <div className="activity-feed">

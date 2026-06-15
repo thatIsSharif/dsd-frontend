@@ -133,6 +133,26 @@
   "toolTip.orders": "To view orders, user needs to create an order",
   "toolTip.attachments": "To view attachments, user needs to upload files",
 
-  "timeline.option11": "My Orders"
+  "timeline.option11": "My Orders",
+
+  "stats.ordersToday": "Orders Today",
+  "stats.activeDrivers": "Active Drivers",
+  "stats.itemsInStock": "Items in Stock",
+  "stats.vsYesterday": "vs yesterday",
+  "activity.recent": "Recent Activity",
+  "activity.checkedIn": "checked in",
+  "activity.orderCreated": "Loading order #104 created",
+  "activity.orderShipped": "Loading order #103 shipped",
+  "activity.stockUpdated": "Stock updated for Order #102",
+  "activity.driverAssigned": "Driver VANSELLER03 assigned",
+  "activity.hoursAgo": "hours ago",
+  "activity.minutesAgo": "minutes ago",
+  "driver.status.online": "Online",
+  "driver.status.offline": "Offline",
+  "driver.status.onRoute": "On Route",
+  "breadcrumb.home": "Home",
+  "toast.orderCreated": "Loading order created successfully",
+  "toast.stockCheckedIn": "Stock checked in successfully",
+  "toast.error": "Something went wrong, please try again"
 }
 

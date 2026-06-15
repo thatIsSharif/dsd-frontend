@@ -132,6 +132,26 @@
   "toolTip.orders": "Pour afficher les commandes, l'utilisateur doit créer une commande",
   "toolTip.attachments": "Pour consulter les pièces jointes, l'utilisateur doit télécharger des fichiers",
 
-  "timeline.option11": "Mes commandes"
+  "timeline.option11": "Mes commandes",
+
+  "stats.ordersToday": "Commandes du jour",
+  "stats.activeDrivers": "Chauffeurs actifs",
+  "stats.itemsInStock": "Articles en stock",
+  "stats.vsYesterday": "par rapport à hier",
+  "activity.recent": "Activité récente",
+  "activity.checkedIn": "a vérifié",
+  "activity.orderCreated": "Ordre de chargement #104 créé",
+  "activity.orderShipped": "Ordre de chargement #103 expédié",
+  "activity.stockUpdated": "Stock mis à jour pour la commande #102",
+  "activity.driverAssigned": "Chauffeur VANSELLER03 assigné",
+  "activity.hoursAgo": "heures passées",
+  "activity.minutesAgo": "minutes passées",
+  "driver.status.online": "En ligne",
+  "driver.status.offline": "Hors ligne",
+  "driver.status.onRoute": "En route",
+  "breadcrumb.home": "Accueil",
+  "toast.orderCreated": "Ordre de chargement créé avec succès",
+  "toast.stockCheckedIn": "Stock vérifié avec succès",
+  "toast.error": "Quelque chose s'est mal passé, veuillez réessayer"
 }
 

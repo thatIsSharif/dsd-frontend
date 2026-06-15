@@ -245,9 +245,15 @@ export default Home;
 function CardStack() {
   const {t} = useTranslation();
   const date = format(new Date(), 'do MMMM, yyyy');
-  const user = JSON.parse(
-    localStorage.getItem('user') || '{username:"",employee_id:""}',
-  );
+  let user: {username?: string; employee_id?: string} = {username: '', employee_id: ''};
+  try {
+    const stored = localStorage.getItem('user');
+    if (stored) {
+      user = JSON.parse(stored);
+    }
+  } catch {
+    // ignore parse errors
+  }
   const adminMainInfo = `${t('home.welcomeAdmin')} ${user.username?.split(' ')[0] || ''}!`;
   const dateMainInfo = t('home.dateHeading');
   return (

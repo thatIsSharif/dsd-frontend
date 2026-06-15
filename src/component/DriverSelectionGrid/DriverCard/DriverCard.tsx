@@ -8,6 +8,7 @@ import Stack from '@mui/material/Stack';
 import Person from 'assets/SVG/Person.svg';
 import RightArrowBlue from 'assets/SVG/RightArrowBlue.svg';
 import {ClipLoader} from 'react-spinners';
+import {useTranslation} from 'react-i18next';
 import styles from 'styles/design-systems.module.scss';
 import './DriverCard.scss';
 import {DriverCardProps} from './propTypes/types.ts';
@@ -18,6 +19,7 @@ function DriverCard({
   selectedDriverId,
   handleDriverSelection,
 }: DriverCardProps) {
+  const {t} = useTranslation();
   const status = driver.status;
   const statusLabel =
     status === 'online'
@@ -39,7 +41,7 @@ function DriverCard({
         {status && (
           <div className={`driver-status driver-status-${status}`}>
             <span className={`status-dot status-dot-${status}`} />
-            {statusLabel}
+            {t(statusLabel)}
           </div>
         )}
         <CardActionArea
