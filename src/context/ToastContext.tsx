@@ -21,6 +21,10 @@ export function ToastProvider({children}: {children: ReactNode}) {
     setToasts(prev => prev.filter(t => t.id !== id));
   }, []);
 
+  /**
+   * Shows a toast notification. Creates a toast with the given message and type,
+   * appends it to the toasts array, and schedules auto-removal after 3 seconds.
+   */
   const showToast = useCallback((message: string, type: 'success' | 'error') => {
     const id = Date.now().toString() + Math.random().toString(36).slice(2);
     setToasts(prev => [...prev, {id, message, type}]);
