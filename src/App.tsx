@@ -60,6 +60,9 @@ const MyOrders = lazy(
   () => import('screens/StockCheckOut/MyOrder/MyOrder.tsx'),
 );
 
+const LoanCalculator = lazy(
+  () => import('screens/LoanCalculator/LoanCalculator.tsx'),
+);
 
 const initialLanguage =
   localStorage.getItem('currentLanguage') || languages.ENGLISH;
@@ -102,6 +105,14 @@ function App() {
                       <ProtectedRoute>
                         <Home />
                       </ProtectedRoute>
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="/loan-calculator"
+                  element={
+                    <Suspense fallback={<Loading />}>
+                      <LoanCalculator />
                     </Suspense>
                   }
                 />
