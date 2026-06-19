@@ -31,6 +31,13 @@ function NavigationCard({item}: NavigationCardProps) {
             lg: '256px',
             xl: '300px',
           },
+          transition: 'all 0.25s ease',
+          '&:hover': {
+            '& .bottom-icon': {
+              filter:
+                'brightness(0) saturate(100%) invert(33%) sepia(94%) saturate(1352%) hue-rotate(200deg) brightness(94%) contrast(90%)',
+            },
+          },
         }}>
         <CardActionArea
           onClick={() => navigate(item.path)}

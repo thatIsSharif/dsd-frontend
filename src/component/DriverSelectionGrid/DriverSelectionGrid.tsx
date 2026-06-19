@@ -1,9 +1,9 @@
 import Box from '@mui/material/Box';
 import DriverNameGridHeader from 'component/DriverNameGridHeader/DriverNameGridHeader.tsx';
+import {DriverGridSkeleton} from 'component/Skeleton/Skeleton.tsx';
 import {Driver} from 'models/Driver.ts';
 import {driverTypes} from 'models/driverTypes.ts';
 import {MouseEvent, useEffect, useState} from 'react';
-import Loading from 'screens/Loading/Loading.tsx';
 import DriverCard from './DriverCard/DriverCard.tsx';
 import {DriverSelectionGridProps} from './propTypes/types.ts';
 
@@ -56,7 +56,7 @@ function DriverSelectionGrid({
   }, [driverType, searchText, driverArray]);
 
   if (isDriverGridLoading) {
-    return <Loading />;
+    return <DriverGridSkeleton />;
   } else {
     return (
       <>

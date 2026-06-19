@@ -8,6 +8,7 @@ import {useLocation} from 'react-router-dom';
 
 import confirmAnimation from 'assets/LOTTIE/ConfirmAnimation.json';
 import BlueButton from 'component/BlueButton/BlueButton.tsx';
+import Breadcrumbs from 'component/Breadcrumbs/Breadcrumbs.tsx';
 import ScreenLayout from 'component/ScreenLayout/ScreenLayout.tsx';
 import Timeline from 'component/Timeline/Timeline.tsx';
 
@@ -266,6 +267,7 @@ function StockCheckOut() {
       <Header>
         <PageDetails heading={heading} subHeading={subHeading} />
       </Header>
+      <Breadcrumbs />
       <InfoAlertDialog
         titleText={'alert.title2'}
         messageText={'alert.text2'}

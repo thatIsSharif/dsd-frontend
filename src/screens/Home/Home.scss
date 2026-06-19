@@ -54,9 +54,10 @@
 }
 
 .navigation-card {
-  transition: transform 0.3s;
+  transition: all 0.25s ease;
   &:hover {
-    transform: scale(1.05);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   }
 }
 
@@ -68,5 +69,54 @@
   margin-left: 14%;
   width: 176px;
   height: 40px;
+}
+
+// ── Stats Row ──────────────────────────────────────────────────────
+.stats-row {
+  display: flex;
+  gap: 2%;
+  margin-bottom: 24px;
+  width: 100%;
+
+  .stats-card {
+    flex: 1;
+    transition: all 0.25s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+// ── Activity Feed ──────────────────────────────────────────────────
+.activity-section {
+  margin-block: 24px;
+  padding: 20px;
+  background: $white-pure;
+  border-radius: 12px;
+  border: 1px solid $border-gray-muted;
+
+  .activity-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    transition: background 0.2s;
+
+    &:hover {
+      background: $bg-beige-light;
+    }
+
+    .activity-content {
+      flex: 1;
+    }
+
+    .activity-detail {
+      font-weight: $font-bolder;
+      color: $primary-blue;
+    }
+  }
 }
 

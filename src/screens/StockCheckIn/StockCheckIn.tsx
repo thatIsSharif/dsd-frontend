@@ -6,6 +6,7 @@ import {Outlet} from 'react-router';
 import {useLocation, useNavigate} from 'react-router-dom';
 
 import {AxiosResponse} from 'axios';
+import Breadcrumbs from 'component/Breadcrumbs/Breadcrumbs.tsx';
 import ScreenLayout from 'component/ScreenLayout/ScreenLayout.tsx';
 import Timeline from 'component/Timeline/Timeline.tsx';
 
@@ -278,6 +279,7 @@ function StockCheckIn() {
       <Header>
         <PageDetails heading={heading} subHeading={subHeading} />
       </Header>
+      <Breadcrumbs />
       <InfoAlertDialog
         titleText={'alert.title3'}
         messageText={'alert.text1'}

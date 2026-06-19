@@ -10,3 +10,31 @@
   line-clamp: 1;
   -webkit-box-orient:  vertical;
 }
+
+// ── Driver Status Badges ───────────────────────────────────────────
+.driver-status-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: $font-bolder;
+  padding: 3px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  line-height: 1.4;
+
+  &.badge-online {
+    background-color: rgba(18, 181, 32, 0.15);
+    color: $vibrant-green;
+  }
+
+  &.badge-offline {
+    background-color: rgba(166, 166, 166, 0.2);
+    color: $gray-muted;
+  }
+
+  &.badge-onroute {
+    background-color: rgba(255, 170, 0, 0.15);
+    color: #cc8800;
+  }
+}
