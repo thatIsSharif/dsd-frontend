@@ -22,7 +22,7 @@ function Sidebar() {
   };
   return (
     <>
-      <nav data-testid={'sidebar'} className={'sidebar-nav'}>
+      <nav data-testid={'sidebar'} className={'sidebar-nav animate-slide-in-left'}>
         <div className={'logo-div'}>
           <img src={logo} className="logo-img" alt="no-image-present"></img>
         </div>

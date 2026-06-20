@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
+import Breadcrumbs from 'component/Breadcrumbs/Breadcrumbs.tsx';
 import DriverNameGridHeader from 'component/DriverNameGridHeader/DriverNameGridHeader.tsx';
 import Header from 'component/Header/Header.tsx';
 import PageDetails from 'component/PageDetails/PageDetails.tsx';
@@ -36,6 +37,7 @@ function AllHistory() {
       <Header>
         <PageDetails heading={heading} subHeading={subHeading} />
       </Header>
+      <Breadcrumbs />
       <Stack className={'all-history-screen'}>
         <Box padding={2} sx={{textAlign: 'center'}}>
           <DriverNameGridHeader

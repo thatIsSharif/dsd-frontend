@@ -5,6 +5,7 @@ import {lazy, Suspense} from 'react';
 import {initReactI18next} from 'react-i18next';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
+import {ToastProvider} from 'component/Toast/Toast.tsx';
 import ProtectedRoute from 'component/ProtectedRoute/ProtectedRoute.tsx';
 import TimelineState from 'context/timeline/TimelineState.tsx';
 import Loading from 'screens/Loading/Loading.tsx';
@@ -14,6 +15,7 @@ import 'App.scss';
 import SidebarState from 'context/sidebar/sidebarState';
 import enJSON from 'resources/labels/en.json';
 import frJSON from 'resources/labels/fr.json';
+import hiJSON from 'resources/labels/hi.json';
 import styles from 'styles/design-systems.module.scss';
 import {languages} from 'utilities/enums';
 
@@ -67,10 +69,19 @@ i18n.use(initReactI18next).init({
   resources: {
     en: {translation: {...enJSON}},
     fr: {translation: {...frJSON}},
+    hi: {translation: {...hiJSON}},
   },
   lng: initialLanguage,
   fallbackLng: languages.ENGLISH,
 });
+
+/* Initialize dark mode from localStorage — reads the user's persisted
+   preference (set via DarkModeToggle) and applies the 'dark' class before
+   the initial render to prevent a flash of the wrong theme. */
+const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+if (savedDarkMode) {
+  document.body.classList.add('dark');
+}
 
 function App() {
   const theme = createTheme({
@@ -89,6 +100,7 @@ function App() {
       {/*Make sure all components using material ui goes inside this*/}
 
       <ThemeProvider theme={theme}>
+        <ToastProvider>
         <SidebarState>
           <TimelineState>
             <BrowserRouter>
@@ -228,6 +240,7 @@ function App() {
             </BrowserRouter>
           </TimelineState>
         </SidebarState>
+        </ToastProvider>
       </ThemeProvider>
     </>
   );

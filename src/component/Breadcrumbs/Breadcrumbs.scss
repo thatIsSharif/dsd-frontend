@@ -1,0 +1,46 @@
+@import 'src/styles/design-systems.module';
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  padding: 12px 3%;
+  background: transparent;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  .breadcrumb-item {
+    display: flex;
+    align-items: center;
+  }
+
+  .breadcrumb-link {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: $font-sm;
+    font-weight: $font-normal;
+    color: $primary-blue;
+    font-family: 'Poppins', sans-serif;
+    padding: 2px 4px;
+    transition: color 0.2s;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+
+    &:hover {
+      color: darken($primary-blue, 10%);
+    }
+  }
+
+  .breadcrumb-current {
+    font-size: $font-sm;
+    font-weight: $font-normal;
+    color: $gray-charcoal;
+    padding: 2px 4px;
+  }
+
+  .breadcrumb-separator {
+    margin: 0 6px;
+    font-size: $font-md;
+    color: $gray-muted;
+  }
+}

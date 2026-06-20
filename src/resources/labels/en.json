@@ -133,6 +133,38 @@
   "toolTip.orders": "To view orders, user needs to create an order",
   "toolTip.attachments": "To view attachments, user needs to upload files",
 
-  "timeline.option11": "My Orders"
+  "timeline.option11": "My Orders",
+
+  "stats.ordersToday": "Orders Today",
+  "stats.activeDrivers": "Active Drivers",
+  "stats.itemsInStock": "Items in Stock",
+  "stats.vsYesterday": "vs yesterday",
+
+  "activity.title": "Recent Activity",
+  "activity.checkedIn": "checked in",
+  "activity.orderCreated": "Loading order #104 created",
+  "activity.stockAssigned": "Stock assigned",
+  "activity.driverSigned": "Driver signed",
+  "activity.orderCompleted": "Order #098 completed",
+  "activity.minutesAgo": "minutes ago",
+  "activity.hoursAgo": "hours ago",
+  "activity.justNow": "just now",
+
+  "status.online": "Online",
+  "status.offline": "Offline",
+  "status.onRoute": "On Route",
+
+  "breadcrumb.home": "Home",
+  "breadcrumb.stockCheckOut": "Stock Check Out",
+  "breadcrumb.stockCheckIn": "Stock Check In",
+  "breadcrumb.selectDriver": "Select Driver",
+  "breadcrumb.myOrders": "My Orders",
+  "breadcrumb.order": "Order",
+  "breadcrumb.deliveryTable": "Delivery Table",
+  "breadcrumb.signature": "Signature",
+  "breadcrumb.history": "History",
+  "breadcrumb.transaction": "Transaction",
+  "breadcrumb.stock": "Stock",
+  "breadcrumb.attachment": "Attachment"
 }
 

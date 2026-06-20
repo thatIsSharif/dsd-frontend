@@ -132,6 +132,38 @@
   "toolTip.orders": "Pour afficher les commandes, l'utilisateur doit créer une commande",
   "toolTip.attachments": "Pour consulter les pièces jointes, l'utilisateur doit télécharger des fichiers",
 
-  "timeline.option11": "Mes commandes"
+  "timeline.option11": "Mes commandes",
+
+  "stats.ordersToday": "Commandes aujourd'hui",
+  "stats.activeDrivers": "Chauffeurs actifs",
+  "stats.itemsInStock": "Articles en stock",
+  "stats.vsYesterday": "vs hier",
+
+  "activity.title": "Activité récente",
+  "activity.checkedIn": "enregistré",
+  "activity.orderCreated": "Ordre de chargement #104 créé",
+  "activity.stockAssigned": "Stock attribué",
+  "activity.driverSigned": "Chauffeur signé",
+  "activity.orderCompleted": "Commande #098 terminée",
+  "activity.minutesAgo": "minutes auparavant",
+  "activity.hoursAgo": "heures auparavant",
+  "activity.justNow": "tout à l'heure",
+
+  "status.online": "En ligne",
+  "status.offline": "Hors ligne",
+  "status.onRoute": "En route",
+
+  "breadcrumb.home": "Accueil",
+  "breadcrumb.stockCheckOut": "Sortie de stock",
+  "breadcrumb.stockCheckIn": "Réception de stock",
+  "breadcrumb.selectDriver": "Sélectionner le chauffeur",
+  "breadcrumb.myOrders": "Mes commandes",
+  "breadcrumb.order": "Commande",
+  "breadcrumb.deliveryTable": "Tableau de livraison",
+  "breadcrumb.signature": "Signature",
+  "breadcrumb.history": "Historique",
+  "breadcrumb.transaction": "Transaction",
+  "breadcrumb.stock": "Stock",
+  "breadcrumb.attachment": "Pièce jointe"
 }
 
