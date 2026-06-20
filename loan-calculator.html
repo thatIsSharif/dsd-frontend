@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loan Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .calculator {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            padding: 40px;
+            max-width: 480px;
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .calculator:hover {
+            transform: translateY(-4px);
+        }
+
+        .calculator__title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .calculator__subtitle {
+            font-size: 14px;
+            color: #888;
+            text-align: center;
+            margin-bottom: 32px;
+            font-weight: 400;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 6px;
+        }
+
+        .form-group .input-wrapper {
+            position: relative;
+        }
+
+        .form-group .input-wrapper .prefix {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            font-weight: 500;
+            color: #666;
+            pointer-events: none;
+        }
+
+        .form-group .input-wrapper .suffix {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            color: #888;
+            pointer-events: none;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background: #fafafa;
+        }
+
+        .form-group input.has-prefix {
+            padding-left: 32px;
+        }
+
+        .form-group input.has-suffix {
+            padding-right: 36px;
+        }
+
+        .form-group input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+            background: #fff;
+        }
+
+        .form-group input::-webkit-outer-spin-button,
+        .form-group input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .form-group input[type='number'] {
+            -moz-appearance: textfield;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 16px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: opacity 0.3s ease, transform 0.2s ease;
+            margin-top: 8px;
+        }
+
+        .calculate-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(0);
+        }
+
+        .result {
+            margin-top: 28px;
+            padding: 24px;
+            background: linear-gradient(135deg, #f5f7ff, #f3eeff);
+            border-radius: 14px;
+            display: none;
+        }
+
+        .result.visible {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result__item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+        }
+
+        .result__item:not(:last-child) {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .result__label {
+            font-size: 14px;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .result__value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        .result__value--highlight {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .result__divider {
+            height: 1px;
+            background: rgba(0, 0, 0, 0.08);
+            margin: 8px 0;
+        }
+
+        .result__total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 8px;
+        }
+
+        .result__total .result__label {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .error {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .error.visible {
+            display: block;
+        }
+
+        @media (max-width: 520px) {
+            .calculator {
+                padding: 24px 20px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .calculator__title {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1 class="calculator__title">Loan Calculator</h1>
+        <p class="calculator__subtitle">Plan your monthly payments instantly</p>
+
+        <div class="form-group">
+            <label for="loanAmount">Loan Amount</label>
+            <div class="input-wrapper">
+                <span class="prefix">$</span>
+                <input type="number" id="loanAmount" class="has-prefix" placeholder="0" min="0" />
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="interestRate">Interest Rate</label>
+                <div class="input-wrapper">
+                    <input type="number" id="interestRate" class="has-suffix" placeholder="0" step="0.1" min="0" />
+                    <span class="suffix">%</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="loanTerm">Loan Term</label>
+                <div class="input-wrapper">
+                    <input type="number" id="loanTerm" class="has-suffix" placeholder="0" min="1" />
+                    <span class="suffix">yrs</span>
+                </div>
+            </div>
+        </div>
+
+        <p class="error" id="errorMsg">Please fill in all fields with valid values.</p>
+
+        <button class="calculate-btn" id="calculateBtn">Calculate Monthly Payment</button>
+
+        <div class="result" id="result">
+            <div class="result__item">
+                <span class="result__label">Monthly Payment</span>
+                <span class="result__value result__value--highlight" id="monthlyPayment">$0.00</span>
+            </div>
+            <div class="result__divider"></div>
+            <div class="result__item">
+                <span class="result__label">Total Interest</span>
+                <span class="result__value" id="totalInterest">$0.00</span>
+            </div>
+            <div class="result__item">
+                <span class="result__label">Total Payment</span>
+                <span class="result__value" id="totalPayment">$0.00</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const loanAmountInput = document.getElementById('loanAmount');
+        const interestRateInput = document.getElementById('interestRate');
+        const loanTermInput = document.getElementById('loanTerm');
+        const calculateBtn = document.getElementById('calculateBtn');
+        const errorMsg = document.getElementById('errorMsg');
+        const result = document.getElementById('result');
+        const monthlyPayment = document.getElementById('monthlyPayment');
+        const totalInterest = document.getElementById('totalInterest');
+        const totalPayment = document.getElementById('totalPayment');
+
+        function calculateLoan() {
+            const principal = parseFloat(loanAmountInput.value);
+            const rate = parseFloat(interestRateInput.value);
+            const years = parseInt(loanTermInput.value, 10);
+
+            if (!principal || !rate || !years || principal <= 0 || rate <= 0 || years <= 0) {
+                errorMsg.classList.add('visible');
+                result.classList.remove('visible');
+                return;
+            }
+
+            errorMsg.classList.remove('visible');
+
+            const monthlyRate = rate / 100 / 12;
+            const months = years * 12;
+
+            if (monthlyRate === 0) {
+                const payment = principal / months;
+                const totalPay = principal;
+                const interest = 0;
+                monthlyPayment.textContent = '$' + payment.toFixed(2);
+                totalInterest.textContent = '$' + interest.toFixed(2);
+                totalPayment.textContent = '$' + totalPay.toFixed(2);
+            } else {
+                const payment =
+                    (principal * (monthlyRate * Math.pow(1 + monthlyRate, months))) /
+                    (Math.pow(1 + monthlyRate, months) - 1);
+                const totalPay = payment * months;
+                const interest = totalPay - principal;
+                monthlyPayment.textContent = '$' + payment.toFixed(2);
+                totalInterest.textContent = '$' + interest.toFixed(2);
+                totalPayment.textContent = '$' + totalPay.toFixed(2);
+            }
+
+            result.classList.add('visible');
+        }
+
+        calculateBtn.addEventListener('click', calculateLoan);
+
+        // Allow Enter key to trigger calculation
+        document.querySelectorAll('.form-group input').forEach((input) => {
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    calculateLoan();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
