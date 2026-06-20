@@ -75,7 +75,9 @@ i18n.use(initReactI18next).init({
   fallbackLng: languages.ENGLISH,
 });
 
-// Initialize dark mode from localStorage
+/* Initialize dark mode from localStorage — reads the user's persisted
+   preference (set via DarkModeToggle) and applies the 'dark' class before
+   the initial render to prevent a flash of the wrong theme. */
 const savedDarkMode = localStorage.getItem('darkMode') === 'true';
 if (savedDarkMode) {
   document.body.classList.add('dark');
