@@ -1,238 +1,207 @@
-# NE-Warehouse-Admin-Frontend
+# DSD Frontend — Warehouse Admin Dashboard
 
-This document provides an overview of the React based project named `NEWarehouseAdmin-Frontend`. The project is supports React version 16.8.0+.
+A React-based warehouse administration dashboard for managing drivers, orders, stock check-in/check-out, and daily operations. Built with TypeScript, Material UI, and Vite.
 
-## Table of Contents
+## Features
 
-- [Introduction](#introduction)
-- [Requirements](#requirements)
-- [Requirements for Deployment](#requirements-for-deployment)
-- [Setup](#setup)
-- [Steps for running](#steps-for-running)
-- [Steps for deployment](#steps-for-deployment)
-- [Project Structure](#project-structure)
-- [Coding Conventions](#coding-conventions)
-- [Scripts](#scripts)
-- [Dependencies](#dependencies)
-- [Dev-Dependencies](#dev-dependencies)
-- [Conclusion](#conclusion)
+### Dashboard
+- **Welcome card** with animated greeting and current date display
+- **Animated stat cards** — Orders Today, Active Drivers, Items in Stock — with count-up animations and delta indicators vs. yesterday
+- **Navigation card grid** — quick-access cards for all modules with staggered fade-in animations
+- **Recent activity feed** — real-time timeline of check-ins, orders, and stock assignments
+- **Download app banner** — CTA banner linking to the mobile app
 
-## Introduction
+### Stock Management
+- **Stock Check-In** — record incoming stock with admin signature, attachments, and transaction history
+- **Stock Check-Out** — assign stock to drivers with delivery orders, product selection, and driver signature capture
 
-This is a React-based web application built for warehouse administrators. It enables efficient management of drivers, orders, and stock through an intuitive interface. The app streamlines daily warehouse operations by connecting seamlessly with the backend system.
+### Driver Management
+- Driver selection grid with status badges (Online, Offline, On Route)
+- Driver assignment for loading orders and deliveries
+- Driver card with pulse-animated status indicators
+
+### Internationalization 🌐
+- **English**, **French**, and **Hindi (हिन्दी)** language support
+- Full UI localization including sidebar, forms, breadcrumbs, stats, and activity feed
+- Language selector in the header for instant switching
+
+### Dark Mode 🌙
+- System-wide dark mode toggle in the header
+- Persistent preference saved to `localStorage`
+- Custom CSS custom properties for seamless light/dark theming
+- Dark-mode-aware MUI overrides
+
+### UI Components
+- **Breadcrumbs** — route-driven, localized breadcrumb navigation
+- **Skeleton loading** — shimmer-animated skeleton cards, grids, and dashboard placeholders
+- **Toast notifications** — context-based toast system for success/error messages with auto-dismiss
+- **Animations** — fade-in-up, fade-in-down, slide-in-left, shimmer, and pulse-badge keyframe animations
+- Responsive grid layouts with staggered animation delays
 
 ## Requirements
 
-- Node.js 16+
-
-## Requirements for Deployment
-
-- WSL (for running a Linux-based environment on Windows)
-- Docker (for containerizing the application)
-- Cloud Foundry CLI (for deploying to Cloud Foundry)
+- **Node.js** 16+
+- **npm** (or yarn/pnpm)
 
 ## Setup
 
-1. Open cmd and navigate to project folder
-2. run 'npm install' in project terminal
+```bash
+# Install dependencies
+npm install
+```
 
-## Steps for running:
+## Running Locally
 
-1. run 'npm run dev' on your terminal.
-2. now run chrome using 'win + r' and run command 'chrome.exe --user-data-dir="C:/Chrome dev session" --disable-web-security'.
-3. This command is to disable cors check for api request.
-4. Then go to 'http://localhost:5173'.
-5. app is also deployed on vercel, so you can also check it at 'https://ne-warehouse-admin.vercel.app/'
+```bash
+# Start the development server
+npm run dev
+```
 
-## Steps for deployment
+Then open [http://localhost:5173](http://localhost:5173) in your browser.
 
-1. Open your terminal inside WSL.
-2. run 'docker build -t notionedge984/warehouse-frontend:2.5.1-20250416 .'
-3. run 'docker push notionedge984/warehouse-frontend:2.5.1-20250416'
-4. run 'cf login -a https://<base-url>.hana.ondemand.com/'
-5. Enter the username and password
-6. run 'cf push warehouse-frontend -o notionedge984/warehouse-frontend:2.5.1-20250416'
+> **Note:** To bypass CORS restrictions during local development, launch Chrome with web security disabled:
+> ```
+> chrome.exe --user-data-dir="C:/Chrome dev session" --disable-web-security
+> ```
+
+## Deployment
+
+### Vercel (Recommended)
+
+The app is deployed at [https://ne-warehouse-admin.vercel.app/](https://ne-warehouse-admin.vercel.app/).
+
+### Docker + Cloud Foundry
+
+```bash
+# Build Docker image
+docker build -t notionedge984/warehouse-frontend:2.5.1-20250416 .
+
+# Push to registry
+docker push notionedge984/warehouse-frontend:2.5.1-20250416
+
+# Deploy to Cloud Foundry
+cf login -a https://<base-url>.hana.ondemand.com/
+cf push warehouse-frontend -o notionedge984/warehouse-frontend:2.5.1-20250416
+```
 
 ## Project Structure
 
-The project has the following structure
-
 ```plaintext
-├── ./
-    ├── .vercel
-    ├── coverage
-    ├── dist
-    ├── node_modules
-    ├── public
-    ├── src/
-        ├───api
-        ├───assets
-        │   ├───LOTTIE
-        │   ├───PNG
-        │   ├───SVG
-        │   └───WEBP
-        ├───component
-        │   ├───AlertDialog
-        │   │   └───propTypes
-        │   ├───BlueBorderButton
-        │   ├───BlueButton
-        │   ├───ColumnHeader
-        │   │   └───propTypes
-        │   ├───DetailsCard
-        │   │   └───propTypes
-        │   ├───DriverNameGridHeader
-        │   │   └───propTypes
-        │   ├───DriverSelectionGrid
-        │   │   ├───DriverCard
-        │   │   │   └───propTypes
-        │   │   └───propTypes
-        │   ├───DropDownButton
-        │   │   └───propTypes
-        │   ├───Header
-        │   │   └───propTypes
-        │   ├───InfoAlertDialog
-        │   │   └───propTypes
-        │   ├───InfoTooltip
-        │   │   └───propTypes
-        │   ├───LanguageSelect
-        │   ├───NavigationCard
-        │   │   └───propTypes
-        │   ├───PageDetails
-        │   │   └───propTypes
-        │   ├───PageHeading
-        │   │   └───propTypes
-        │   ├───ProductIcon
-        │   │   └───propTypes
-        │   ├───ProtectedRoute
-        │   │   └───propTypes
-        │   ├───ScreenLayout
-        │   │   └───propTypes
-        │   ├───SidebarNew
-        │   │   └───propTypes
-        │   ├───SignOutSelect
-        │   ├───Table
-        │   │   └───propTypes
-        │   ├───TableDialogContent
-        │   │   └───propTypes
-        │   └───Timeline
-        ├───context
-        │   ├───sidebar
-        │   │   └───sidebarProps
-        │   └───timeline
-        │       └───timelineProps
-        ├───mockServices
-        ├───models
-        ├───resources
-        │   └───labels
-        ├───screens
-        │   ├───AllHistory
-        │   │   └───AllHistoryTable
-        │   │       ├───AllHistoryColDef
-        │   │       └───propTypes
-        │   ├───ForgotPassword
-        │   ├───Home
-        │   ├───Loading
-        │   ├───Login
-        │   │   └───propTypes
-        │   ├───StockCheckIn
-        │   │   ├───AdminSignature
-        │   │   │   └───propTypes
-        │   │   ├───AttachmentTable
-        │   │   ├───PendingSelectionGrid
-        │   │   ├───propTypes
-        │   │   ├───StockTable
-        │   │   └───TransactionTable
-        │   └───StockCheckOut
-        │       ├───DeliveryTable
-        │       │   ├───DeliveryColDef
-        │       │   └───propTypes
-        │       ├───DriverNameGrid
-        │       ├───DriverSignature
-        │       │   └───propTypes
-        │       ├───MyOrder
-        │       │   ├───MyOrderCol
-        │       │   └───propTypes
-        │       ├───OrderTable
-        │       │   └───OrderColDef
-        │       ├───ProductsTable
-        │       │   ├───ProductsColDef
-        │       │   └───propTypes
-        │       └───propTypes
-        ├───styles
-        └───utilities
-            ├───AttachmentColDef
-            ├───commonTransactionColDef
-            ├───DeliveryTransactionColDef
-            ├───StockColDef
-            └───VanSellerTransactionColDef
-
+./
+├── public/                     # Static assets
+├── src/
+│   ├── api/                    # API service layer
+│   ├── assets/                 # Images, icons, Lottie animations
+│   │   ├── LOTTIE/
+│   │   ├── PNG/
+│   │   ├── SVG/
+│   │   └── WEBP/
+│   ├── component/              # Reusable UI components
+│   │   ├── Breadcrumbs/        # Route-driven breadcrumb navigation
+│   │   ├── DarkModeToggle/     # Light/dark mode switcher
+│   │   ├── DriverSelectionGrid/# Driver selection with status cards
+│   │   ├── Header/             # App header with nav & controls
+│   │   ├── LanguageSelect/     # i18n language selector
+│   │   ├── NavigationCard/     # Dashboard navigation card
+│   │   ├── SidebarNew/         # Collapsible sidebar navigation
+│   │   ├── Skeleton/           # Shimmer loading placeholders
+│   │   ├── Toast/              # Toast notification system
+│   │   └── ...                 # Other reusable components
+│   ├── context/                # React context providers
+│   │   ├── sidebar/
+│   │   └── timeline/
+│   ├── models/                 # TypeScript data models
+│   ├── resources/
+│   │   └── labels/             # i18n translation files
+│   │       ├── en.json         # English
+│   │       ├── fr.json         # French
+│   │       └── hi.json         # Hindi (हिन्दी)
+│   ├── screens/                # Page-level components
+│   │   ├── AllHistory/         # Full order history
+│   │   ├── ForgotPassword/     # Password reset
+│   │   ├── Home/               # Dashboard with stats & activity
+│   │   ├── Loading/            # Loading screen
+│   │   ├── Login/              # Authentication
+│   │   ├── StockCheckIn/       # Stock receiving workflow
+│   │   └── StockCheckOut/      # Stock dispatch workflow
+│   ├── styles/                 # Global SCSS styles
+│   │   ├── _animations.scss    # Keyframes & dark mode variables
+│   │   ├── _toast.scss         # Toast notification styles
+│   │   └── design-systems.module.scss
+│   ├── utilities/              # Helpers, enums, column definitions
+│   ├── App.tsx                 # Root application component
+│   └── main.tsx                # Application entry point
+├── Dockerfile                  # Docker container configuration
+├── nginx.conf                  # Nginx config for production
+├── vite.config.ts              # Vite build configuration
+├── tsconfig.json               # TypeScript configuration
+├── jest.config.js              # Jest test configuration
+└── package.json                # Dependencies and scripts
 ```
+
+## Scripts
+
+| Script | Description |
+|---|---|
+| `npm run dev` | Start development server with Vite |
+| `npm run build` | Compile TypeScript and build for production |
+| `npm run lint` | Run ESLint on source files |
+| `npm run preview` | Preview production build locally |
+| `npm run format` | Check code formatting with Prettier |
+| `npm run format:fix` | Fix code formatting |
+| `npm test` | Run test suite with Jest |
+| `npm run test:watch` | Run tests in watch mode |
 
 ## Coding Conventions
 
-1. Traditional function syntax for component declarations and callbacks. For example:
+1. **Component declarations** use traditional `function` syntax:
+   ```tsx
+   // Preferred
+   function MyComponent() { ... }
+   ```
 
-```
-// Preferred
-function MyComponent() { ... }
-// Avoid
-const MyComponent = () => { ... }
+2. **Destructuring** for cleaner props and state access:
+   ```tsx
+   const { title, onPress } = props;
+   ```
 
-```
+3. **Naming conventions:**
+   - Component files: `PascalCase` (e.g., `DetailsCard.tsx`)
+   - Variables and functions: `camelCase`
+   - Style files: match component name (e.g., `DetailsCard.scss`)
 
-2. Destructuring is used wherever applicable for cleaner props and state access. For example:
-   'const { title, onPress } = props;'
+4. **Styling:** SCSS files per component + MUI `sx` prop for component-level styles.
 
-3. Consistent naming conventions for files and variables:
+5. **Modular component structure:**
+   ```
+   DetailsCard/
+   ├── propTypes/           # PropTypes definitions
+   ├── DetailsCard.tsx      # Component logic
+   ├── DetailsCard.scss     # Styling
+   ├── DetailsCard.test.tsx # Unit tests
+   └── DetailsCard.md       # Documentation
+   ```
 
-- Component files: PascalCase (e.g., BottomSheet.tsx)
-- Variables, functions: camelCase
+## Key Dependencies
 
-4. Styles are defined in a .scss file (e.g., DetailsCard.scss) and MUI styles to be defined using 'sx' property of that MUI element.
+| Package | Purpose |
+|---|---|
+| **Material UI** | UI component library with Material Design |
+| **axios** | HTTP client for API requests |
+| **date-fns** | Date/time utility library |
+| **formik + yup** | Form state management and validation |
+| **i18next** | Internationalization framework |
+| **react-router** | Client-side routing |
+| **react-spinners** | Loading spinner components |
+| **sass** | SCSS preprocessing |
 
-5. Functional, reusable components are preferred. Components follow a component-centric modular structure:
-   /components
-   └── DetailsCard/
-   └───propTypes
-   types.ts (Type definitions (props, enums, etc.))
-   ├── DetailsCard.tsx (Component logic)
-   ├── DetailsCard.scss (Styling file)
-   ├── DetailsCard.test.tsx (Unit tests)
-   ├── DetailsCard.md (Documentation)
+## Recent Enhancements (KAN-11)
 
-## Scripts:
-
-1. dev: Starts the development mockServer using Vite.
-2. build: Compiles TypeScript code & Builds the application for production using Vite.
-3. lint: Runs ESLint for linting TypeScript and JavaScript files with additional options.
-4. preview: Runs production build.
-5. format: Checks code formatting using Prettier.
-6. format:fix : Fixes code formatting using Prettier.
-7. test: Runs tests using Jest.
-8. test:watch : Runs tests in watch mode using Jest.
-
-## Dependencies:
-
-1. Material UI: UI component library for React with Google's Material Design.
-2. axios: Promise-based HTTP client for making API requests in React applications.
-3. date-fns: Utility library for working with dates and times in JavaScript.
-4. formik: Form management library for React that simplifies handling form state, validation, and submission
-5. i18next: Internationalization library for React applications to support multiple languages.
-6. react: JavaScript library for building user interfaces. (Core dependency for most React projects)
-7. yup: Object schema validation library commonly used for form validation in React applications.
-8. react-router: Routing library for managing navigation within a React application.
-9. react-spinners: Library for adding loading spinners to React applications.
-
-## Dev-Dependencies:
-
-1. prettier: Code formatter that enforces consistent code style across your project.
-2. es-lint: Static code analysis tool for identifying and fixing code quality issues in JavaScript projects.
-3. sass: CSS preprocessor language that extends CSS with features like variables, mixins, and nesting for more maintainable styles.
-4. typescript: Statically typed superset of JavaScript that adds optional types for improved code safety and maintainability.
-5. vite: Modern build tool for developing and optimizing web applications, known for its fast development experience.
-6. jest: Modern build tool for developing and optimizing web applications, known for its fast development experience.
-7. react-testing-library: A lightweight library for testing React components with a focus on mimicking user interactions.
-
-## Conclusion
-
-This overview covers the key configurations and steps for running and deploying the `NEWarehouseAdmin-Frontend` React project. Make sure to adjust configurations and dependencies based on your development and deployment needs.
+- Enhanced Dashboard UI with animated stat cards, count-up animations, and responsive navigation grid
+- Skeleton loading screens for dashboard and driver grid
+- Route-driven breadcrumb navigation with i18n support
+- Dark mode toggle with persistent `localStorage` preference
+- Full Hindi (हिन्दी) language translation
+- Toast notification system for success/error feedback
+- CSS animation system with reusable keyframe classes
+- New Driver data model and type definitions
